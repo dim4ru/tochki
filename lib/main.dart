@@ -38,9 +38,6 @@ class MainView extends StatelessWidget {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
