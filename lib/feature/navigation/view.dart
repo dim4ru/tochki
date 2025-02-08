@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../models/appbar_tabs.dart';
+import 'model.dart';
 
 class AppBarItem extends StatelessWidget {
   final AppBarTab item;
@@ -9,8 +10,11 @@ class AppBarItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      item.title
+    return GestureDetector(
+      onTap: item.onTap,
+      child: Text(
+        item.title,
+      ),
     );
   }
 }
