@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 
 import '../marker/view.dart';
 
 
-class MapView extends StatelessWidget {
+class MapView extends GetView<MapController> {
   const MapView({super.key});
 
   @override
@@ -28,7 +29,12 @@ class MapView extends StatelessWidget {
             userAgentPackageName: 'com.example.app',
           ),
           CurrentLocationLayer(),
-          MarkerLayer(markers: [PermanentMarker(point: LatLng(54.989221, 73.368456))])
+          MarkerLayer(
+            markers: [
+              PermanentMarker(point: LatLng(54.989221, 73.368456), markerId: 123),
+              PermanentMarker(point: LatLng(54.987500, 73.370000), markerId: 456),
+            ],
+          ),
         ],
       ),
     );

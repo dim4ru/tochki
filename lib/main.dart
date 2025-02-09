@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tochki/feature/map/controller.dart';
+import 'package:tochki/feature/navigation/controller.dart';
 import 'package:tochki/feature/map/view.dart';
 import 'package:tochki/feature/navigation/view.dart';
 
+import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
 
 void main() {
+  Get.put(PermanentMarkerController());
   runApp(const MyApp());
 }
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Tochki',
       home: const MainView(),
     );
