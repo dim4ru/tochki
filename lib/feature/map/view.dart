@@ -31,8 +31,8 @@ class MapView extends GetView<MapController> {
           CurrentLocationLayer(),
           MarkerLayer(
             markers: [
-              PermanentMarker(point: LatLng(54.989221, 73.368456), markerId: 123),
-              PermanentMarker(point: LatLng(54.987500, 73.370000), markerId: 456),
+              PermanentMarker(point: LatLng(54.989221, 73.368456), markerId: 123, text: 'Норм место', imageUrl: '/Users/dim4/Downloads/pexels-stevedoessteve-28144564.jpg'),
+              PermanentMarker(point: LatLng(54.987500, 73.370000), markerId: 456, text: 'Крутое место'),
             ],
           ),
         ],
