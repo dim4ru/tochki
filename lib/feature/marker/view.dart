@@ -23,7 +23,12 @@ class PermanentMarker extends Marker {
             builder: (controller) {
               return GestureDetector(
                 onTap: () {
-                  Get.to(Place());
+                  Get.to(
+                    Place(),
+                    transition: Transition.downToUp,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeOut,
+                  );
                 },
                 child: Column(
                   children: [
