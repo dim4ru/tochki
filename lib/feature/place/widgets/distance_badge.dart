@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tochki/shared/typography.dart';
+
+import '../../../shared/colors.dart';
 
 class DistanceBadge extends StatelessWidget {
   final String distance;
@@ -15,15 +18,15 @@ class DistanceBadge extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            color: Colors.blue.shade100,
+            color: TColors.black,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(CupertinoIcons.arrow_turn_up_right, color: Colors.blue, size: 20),
+              Icon(CupertinoIcons.arrow_turn_up_right, color: TColors.white, size: 20),
               const SizedBox(width: 6),
-              Text(distance,),
+              Text(distance, style: TTypography.caption1.copyWith(color: TColors.white),),
             ],
           ),
         ),

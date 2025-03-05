@@ -33,11 +33,11 @@ class Place extends GetView {
                 children: [
                   Text(
                     'Place name',
-                    style: AppTypography.promo,
+                    style: TTypography.promo,
                   ),
                   Text(
                     loremS,
-                    style: AppTypography.body2,
+                    style: TTypography.body2,
                   ),
                 ],
               ),
