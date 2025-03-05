@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
+import 'package:tochki/feature/place/widgets/photos_row.dart';
+
+import '../../data/images.dart';
 
 class Place extends GetView {
   @override
@@ -17,9 +20,7 @@ class Place extends GetView {
           DistanceBadge(distance: '2,3km')
         ],
       ),
-      body: Center(
-        child: FlutterLogo(),
-      ),
+      body: PhotosRow(imageUrls: imageUrls,)
     );
   }
 }
