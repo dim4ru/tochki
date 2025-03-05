@@ -30,23 +30,10 @@ class PermanentMarker extends Marker {
                     curve: Curves.easeOut,
                   );
                 },
-                child: Column(
-                  children: [
-                    Icon(CupertinoIcons.burst_fill,
-                        color: TColors.pinOrange,
-                        size: 36,
-                        shadows: TStyles.pinShadows),
-                    Text(
-                      text,
-                      style: TextStyle(
-                          color: TColors.pinOrange,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          shadows: TStyles.pinShadows),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                child: Icon(CupertinoIcons.burst_fill,
+                    color: TColors.pinOrange,
+                    size: 36,
+                    shadows: TStyles.pinShadows),
               );
             },
           ),

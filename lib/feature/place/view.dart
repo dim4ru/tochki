@@ -10,7 +10,7 @@ class Place extends GetView {
       appBar: AppBar(
         title: Text('Крутое место'),
         leading: IconButton(
-          icon: Icon(Icons.close,),
+          icon: Icon(Icons.keyboard_arrow_down,),
           onPressed: () => Get.back(),
         ),
         actions: [
