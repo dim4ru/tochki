@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
+import 'package:tochki/feature/place/widgets/place_stats_row.dart';
 import 'package:tochki/shared/spacers.dart';
 import 'package:tochki/shared/typography.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -14,7 +15,7 @@ class Place extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Крутое место'),
+        title: Text('Точка'),
         leading: IconButton(
           icon: Icon(
             Icons.keyboard_arrow_down,
@@ -36,6 +37,12 @@ class Place extends GetView {
                   Text(
                     'Place name',
                     style: TTypography.promo,
+                  ),
+                  PlaceStatsRow(
+                    rating: 67.0,
+                    visited: 14,
+                    author: 'dim4',
+                    reviewsCount: 3,
                   ),
                   Text(
                     loremS,
