@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
+import 'package:tochki/shared/spacers.dart';
 import 'package:tochki/shared/typography.dart';
+import 'package:ui_kit/ui_kit.dart';
 
 import '../../data/mock.dart';
 
@@ -27,7 +29,7 @@ class Place extends GetView {
           children: [
             PhotosRow(imageUrls: imageUrls),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(TSpacers.spacing5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -38,6 +40,14 @@ class Place extends GetView {
                   Text(
                     loremS,
                     style: TTypography.body2,
+                  ),
+                  SizedBox(height: TSpacers.spacing5,),
+                  SizedBox(
+                    width: double.infinity,
+                    child: UiButton.filledPrimary(
+                      onPressed: (){},
+                      label: Text('Я здесь был', style: TTypography.body3,),
+                    ),
                   ),
                 ],
               ),

@@ -1,0 +1,40 @@
+name: ui_kit
+description: "A new Flutter package project."
+version: 0.0.1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  icon_font_generator: ^4.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  fonts:
+    - family: Ui Icons
+      fonts:
+        - asset: fonts/ui_icons_font.otf
+
+icon_font:
+  input_svg_dir: "assets/icons/"
+  output_font_file: "fonts/ui_icons_font.otf"
+  output_class_file: "lib/src/icons/ui_icons.dart"
+  class_name: "UiIcons"
+  package: ui_kit
+  format: true
+  font_name: "Ui Icons"
+  normalize: true
+  ignore_shapes: true
+  recursive: true
+  verbose: true
