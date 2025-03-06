@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
+import 'package:tochki/shared/colors.dart';
 import 'package:tochki/shared/spacers.dart';
 import 'package:tochki/shared/typography.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -15,10 +17,12 @@ class Place extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Точка'),
+        backgroundColor: TColors.black,
+        title: Text('Точка', style: TTypography.headline2.copyWith(color: TColors.white),),
         leading: IconButton(
           icon: Icon(
             Icons.keyboard_arrow_down,
+            color: TColors.white,
           ),
           onPressed: () => Get.back(),
         ),
@@ -35,7 +39,7 @@ class Place extends GetView {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Place name',
+                    'Very-very long place name',
                     style: TTypography.promo,
                   ),
                   PlaceStatsRow(
@@ -45,7 +49,7 @@ class Place extends GetView {
                     reviewsCount: 3,
                   ),
                   Text(
-                    loremS,
+                    loremXS,
                     style: TTypography.body2,
                   ),
                   SizedBox(height: TSpacers.spacing5,),
@@ -56,6 +60,40 @@ class Place extends GetView {
                       label: Text('Я здесь был', style: TTypography.body3,),
                     ),
                   ),
+                  SizedBox(height: TSpacers.spacing5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text('Добавил '),
+                          GestureDetector(
+                            child: Text(
+                              'dim4 ❯',
+                              style: TTypography.body3,
+                            ),
+                            onTap: () {},
+                          )
+                        ],
+                      ),
+                      Text('6 марта 2025'),
+                    ],
+                  ),
+                  SizedBox(height: TSpacers.spacing5,),
+                  GestureDetector(
+                    onTap: () async {
+                      await Clipboard.setData(ClipboardData(text: 'sampleid'));
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('PointID: 9634', style: TTypography.caption2.copyWith(color: Colors.grey),),
+                        SizedBox(width: TSpacers.spacing2,),
+                        Icon(Icons.copy_sharp, color: Colors.grey, size: TSpacers.spacing4,)
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: TSpacers.spacing5,),
                 ],
               ),
             )

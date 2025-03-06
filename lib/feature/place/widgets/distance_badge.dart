@@ -18,15 +18,15 @@ class DistanceBadge extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            color: TColors.black,
+            color: TColors.white,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(CupertinoIcons.arrow_turn_up_right, color: TColors.white, size: 20),
+              Icon(CupertinoIcons.arrow_turn_up_right, color: TColors.black, size: 20),
               const SizedBox(width: 6),
-              Text(distance, style: TTypography.caption1.copyWith(color: TColors.white),),
+              Text(distance, style: TTypography.caption1.copyWith(color: TColors.black),),
             ],
           ),
         ),

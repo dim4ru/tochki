@@ -24,8 +24,7 @@ class PlaceStatsRow extends StatelessWidget {
         children: [
           UiButton.text(onPressed: (){}, label: Text("${rating.toStringAsFixed(0)}%"), icon: Icon(Icons.thumbs_up_down_outlined),),
           UiButton.text(onPressed: (){}, label: Text(visited.toString()), icon: Icon(Icons.pin_drop_outlined),),
-          UiButton.text(onPressed: (){}, label: Text('$author  ❯', style: TextStyle(fontWeight: FontWeight.bold),), icon: Icon(Icons.person_2_outlined),),
-          UiButton.text(onPressed: (){}, label: Text('$reviewsCount  ❯', style: TextStyle(fontWeight: FontWeight.bold)), icon: Icon(Icons.rate_review_outlined),),
+          UiButton.text(onPressed: (){}, label: Text('Рецензии ($reviewsCount)  ❯', style: TextStyle(fontWeight: FontWeight.bold)), icon: Icon(Icons.rate_review_outlined),),
         ],
       ),
     );
