@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tochki/shared/shimmers.dart';
 import 'package:tochki/shared/spacers.dart';
 import 'package:tochki/shared/typography.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -41,7 +42,7 @@ class PhotosRow extends StatelessWidget {
                 aspectRatio: 16 / 9,
                 child: CachedNetworkImage(
                   imageUrl: imageUrls[index],
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => TShimmers.imageShimmer,
                   errorWidget: (context, url, error) => Icon(Icons.error),
                   fit: BoxFit.cover,
                 ),
