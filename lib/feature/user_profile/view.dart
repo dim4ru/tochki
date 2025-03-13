@@ -5,24 +5,23 @@ import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
-import 'package:tochki/shared/routing/routes.dart';
 import 'package:tochki/shared/ui_kit/colors.dart';
 import 'package:tochki/shared/ui_kit/spacers.dart';
-import 'package:tochki/shared/ui_kit/typography.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../data/mock.dart';
+import '../../shared/ui_kit/typography.dart';
 
-class Place extends GetView {
+class UserProfile extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
-        title: Text('Точка', style: TTypography.headline2.copyWith(color: TColors.white),),
+        title: Text('Юзер', style: TTypography.headline2.copyWith(color: TColors.white),),
         leading: IconButton(
           icon: Icon(
-            Icons.keyboard_arrow_down,
+            Icons.keyboard_arrow_left,
             color: TColors.white,
           ),
           onPressed: () => Get.back(),
@@ -73,9 +72,7 @@ class Place extends GetView {
                               'dim4 ❯',
                               style: TTypography.body3,
                             ),
-                            onTap: () {
-                              Get.toNamed(TRoutes.userProfile);
-                            },
+                            onTap: () {},
                           )
                         ],
                       ),

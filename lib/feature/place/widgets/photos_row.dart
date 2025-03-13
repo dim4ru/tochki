@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:tochki/shared/shimmers.dart';
-import 'package:tochki/shared/spacers.dart';
-import 'package:tochki/shared/typography.dart';
+import 'package:tochki/shared/ui_kit/shimmers.dart';
+import 'package:tochki/shared/ui_kit/spacers.dart';
+import 'package:tochki/shared/ui_kit/typography.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../../shared/colors.dart';
+import '../../../shared/ui_kit/colors.dart';
 
 class PhotosRow extends StatelessWidget {
   const PhotosRow({super.key, required this.imageUrls});

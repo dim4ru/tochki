@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tochki/shared/typography.dart';
+import 'package:tochki/shared/ui_kit/typography.dart';
 
-import '../../../shared/colors.dart';
+import '../../../shared/ui_kit/colors.dart';
 
 class DistanceBadge extends StatelessWidget {
   final String distance;

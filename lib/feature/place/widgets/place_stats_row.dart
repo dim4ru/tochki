@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tochki/shared/spacers.dart';
+import 'package:tochki/shared/ui_kit/spacers.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class PlaceStatsRow extends StatelessWidget {

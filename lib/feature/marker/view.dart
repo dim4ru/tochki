@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
-import 'package:tochki/shared/colors.dart';
-import '../../shared/styles.dart';
+import 'package:tochki/shared/ui_kit/colors.dart';
+import '../../shared/ui_kit/styles.dart';
 import '../place/view.dart';
 import 'controller.dart';
 
