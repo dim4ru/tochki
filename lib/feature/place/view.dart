@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
 import 'package:tochki/shared/routing/routes.dart';
-import 'package:tochki/shared/ui_kit/colors.dart';
-import 'package:tochki/shared/ui_kit/spacers.dart';
-import 'package:tochki/shared/ui_kit/typography.dart';
+import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../data/mock.dart';
@@ -46,7 +42,6 @@ class Place extends GetView {
                   PlaceStatsRow(
                     rating: 67.0,
                     visited: 14,
-                    author: 'dim4',
                     reviewsCount: 3,
                   ),
                   Text(

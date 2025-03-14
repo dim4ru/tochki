@@ -2,14 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tochki/feature/place/widgets/distance_badge.dart';
-import 'package:tochki/feature/place/widgets/photos_row.dart';
-import 'package:tochki/feature/place/widgets/place_stats_row.dart';
+import 'package:tochki/feature/user_profile/user_stats_row.dart';
 import 'package:tochki/shared/ui_kit/colors.dart';
 import 'package:tochki/shared/ui_kit/spacers.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../data/mock.dart';
 import '../../shared/ui_kit/typography.dart';
 
 class UserProfile extends GetView {
@@ -18,7 +15,7 @@ class UserProfile extends GetView {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
-        title: Text('Юзер', style: TTypography.headline2.copyWith(color: TColors.white),),
+        title: Text('dim4', style: TTypography.headline2.copyWith(color: TColors.white),),
         leading: IconButton(
           icon: Icon(
             Icons.keyboard_arrow_left,
@@ -26,72 +23,48 @@ class UserProfile extends GetView {
           ),
           onPressed: () => Get.back(),
         ),
-        actions: [DistanceBadge(distance: '2,3km')],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PhotosRow(imageUrls: imageUrls),
             Padding(
               padding: const EdgeInsets.all(TSpacers.spacing5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Very-very long place name',
-                    style: TTypography.promo,
+                    'Статистика добавленных точек',
+                    style: TTypography.body1,
                   ),
-                  PlaceStatsRow(
-                    rating: 67.0,
-                    visited: 14,
-                    author: 'dim4',
-                    reviewsCount: 3,
+                  UserStatsRow(
+                    rating: 98,
+                    visitors: 549,
                   ),
-                  Text(
-                    loremXS,
-                    style: TTypography.body2,
-                  ),
+                  // Text(
+                  //   loremXS,
+                  //   style: TTypography.body2,
+                  // ),
                   SizedBox(height: TSpacers.spacing5,),
-                  SizedBox(
-                    width: double.infinity,
-                    child: UiButton.filledPrimary(
-                      onPressed: (){},
-                      label: Text('Я здесь был', style: TTypography.body3,),
-                    ),
-                  ),
-                  SizedBox(height: TSpacers.spacing5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        children: [
-                          Text('Добавил '),
-                          GestureDetector(
-                            child: Text(
-                              'dim4 ❯',
-                              style: TTypography.body3,
-                            ),
-                            onTap: () {},
-                          )
-                        ],
+                      Text('Зарегистрирован 6 марта 2025', style: TTypography.caption2.copyWith(color: Colors.grey),),
+                      SizedBox(height: TSpacers.spacing3,),
+                      GestureDetector(
+                        onTap: () async {
+                          await Clipboard.setData(ClipboardData(text: 'sampleid'));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('UserID: 1', style: TTypography.caption2.copyWith(color: Colors.grey),),
+                            SizedBox(width: TSpacers.spacing2,),
+                            Icon(Icons.copy_sharp, color: Colors.grey, size: TSpacers.spacing4,)
+                          ],
+                        ),
                       ),
-                      Text('6 марта 2025'),
                     ],
-                  ),
-                  SizedBox(height: TSpacers.spacing5,),
-                  GestureDetector(
-                    onTap: () async {
-                      await Clipboard.setData(ClipboardData(text: 'sampleid'));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('PointID: 9634', style: TTypography.caption2.copyWith(color: Colors.grey),),
-                        SizedBox(width: TSpacers.spacing2,),
-                        Icon(Icons.copy_sharp, color: Colors.grey, size: TSpacers.spacing4,)
-                      ],
-                    ),
                   ),
                   SizedBox(height: TSpacers.spacing5,),
                 ],
