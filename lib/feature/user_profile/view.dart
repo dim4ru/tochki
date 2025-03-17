@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tochki/feature/user_profile/user_stats_row.dart';
+import 'package:tochki/feature/user_profile/widgets/user_profile_menu.dart';
 import 'package:tochki/shared/ui_kit/colors.dart';
 import 'package:tochki/shared/ui_kit/spacers.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -33,23 +33,14 @@ class UserProfile extends GetView {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Статистика добавленных точек',
-                    style: TTypography.body1,
+                  SizedBox(height: TSpacers.spacing3,),
+                  UserProfileMenu(
+                    userID: 1,
+                    pointsCount: 10,
+                    reviewsCount: 5,
                   ),
-                  UserStatsRow(
-                    rating: 98,
-                    visitors: 549,
-                  ),
-                  // Text(
-                  //   loremXS,
-                  //   style: TTypography.body2,
-                  // ),
-                  SizedBox(height: TSpacers.spacing5,),
                   Column(
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text('Зарегистрирован 6 марта 2025', style: TTypography.caption2.copyWith(color: Colors.grey),),
                       SizedBox(height: TSpacers.spacing3,),
                       GestureDetector(
                         onTap: () async {
