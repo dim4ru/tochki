@@ -48,6 +48,15 @@ class Place extends GetView {
                     loremXS,
                     style: TTypography.body2,
                   ),
+                  SizedBox(
+                    height: TSpacers.spacing3,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      // TODO open wikimapia description modal
+                    },
+                    child: Text('Описание из Wikimapia  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
                   SizedBox(height: TSpacers.spacing5,),
                   SizedBox(
                     width: double.infinity,
