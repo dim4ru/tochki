@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 
 import '../../shared/ui_kit/colors.dart';
+import 'cotroller.dart';
 
 class WikimapiaModal {
   final WikimapiaController controller = Get.put(WikimapiaController());
@@ -73,35 +74,4 @@ class WikimapiaModal {
           ),
         ));
   }
-}
-
-class WikimapiaController extends GetxController {
-  var isLoading = false.obs;
-  var places = <Place>[].obs;
-
-  // Симуляция запроса на сервер (например, с использованием Dio и Retrofit)
-  void fetchPlaces() async {
-    isLoading.value = true;
-    await Future.delayed(Duration(seconds: 2)); // Симуляция задержки
-    places.value = [
-      Place(title: 'Красная площадь'),
-      Place(title: 'Эйфелева башня'),
-      Place(title: 'Статуя Свободы'),
-      Place(title: 'Статуя Свободы'),
-      Place(title: 'Статуя Свободы'),
-    ];
-    isLoading.value = false;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    fetchPlaces();
-  }
-}
-
-class Place {
-  final String title;
-
-  Place({required this.title});
 }
