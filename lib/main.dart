@@ -12,7 +12,6 @@ void main() {
   Get.put(PermanentMarkerController());
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
