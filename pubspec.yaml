@@ -47,6 +47,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   dio: ^5.8.0+1
   retrofit: ^4.4.2
+  xml: ^6.5.0
 
 dev_dependencies:
   flutter_test:

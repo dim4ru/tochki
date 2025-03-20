@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:tochki/core/models/wikimapia_place.dart';
 
+import '../../core/dto/wikimapia_nearest_result_dto.dart';
 import '../../core/repository.dart';
 import '../../shared/api_constants.dart';
 
@@ -22,12 +23,15 @@ class WikimapiaController extends GetxController {
     isLoading.value = true;
     try {
       // Вызываем метод репозитория для получения ближайших мест
-      List<WikimapiaPlace> res = await _wikimapiaRepository.getNearestPlaces(
+      final xmlResponse = await _wikimapiaRepository.getNearestPlaces(
         ApiConstants.wikimapiaApiKey,
+        // TODO from db
         54.985235,
         73.368473,
       );
-      places.value = res;
+      // finds first place
+      print(WikimapiaNearestResultDto.fromXml(xmlResponse).title);
+      places.value = [];
     } catch (e) {
       // Обработка ошибок
       print("Error fetching places: $e");
@@ -35,6 +39,7 @@ class WikimapiaController extends GetxController {
       isLoading.value = false;
     }
   }
+
 
   @override
   void onInit() {
