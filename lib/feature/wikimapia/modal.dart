@@ -30,23 +30,24 @@ class WikimapiaModal {
               ),
               SizedBox(height: TSpacers.spacing3),
               Obx(() {
-
-                if (controller.isLoading.value) {
-                  return Padding(
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: controller.isLoading.value
+                      ? Padding(
                     padding: const EdgeInsets.only(top: TSpacers.spacing5),
                     child: Center(child: TCircularLoader()),
-                  );
-                } else if (controller.places.isEmpty) {
-                  return Padding(
+                  )
+                      : controller.places.isEmpty
+                      ? Padding(
                     padding: const EdgeInsets.only(top: TSpacers.spacing5),
                     child: Center(
-                        child: Text(
-                      'Нет результатов',
-                      style: TTypography.body2.copyWith(color: TColors.white),
-                    )),
-                  );
-                } else {
-                  return ListView.builder(
+                      child: Text(
+                        'Нет результатов',
+                        style: TTypography.body2.copyWith(color: TColors.white),
+                      ),
+                    ),
+                  )
+                      : ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: controller.places.length,
@@ -64,8 +65,8 @@ class WikimapiaModal {
                             trailing: const Icon(Icons.chevron_right_outlined),
                           ),
                         );
-                      });
-                }
+                      }),
+                );
               }),
               SizedBox(height: MediaQuery.of(context).padding.bottom),
             ],
@@ -83,11 +84,11 @@ class WikimapiaController extends GetxController {
     isLoading.value = true;
     await Future.delayed(Duration(seconds: 2)); // Симуляция задержки
     places.value = [
-      // Place(title: 'Красная площадь'),
-      // Place(title: 'Эйфелева башня'),
-      // Place(title: 'Статуя Свободы'),
-      // Place(title: 'Статуя Свободы'),
-      // Place(title: 'Статуя Свободы'),
+      Place(title: 'Красная площадь'),
+      Place(title: 'Эйфелева башня'),
+      Place(title: 'Статуя Свободы'),
+      Place(title: 'Статуя Свободы'),
+      Place(title: 'Статуя Свободы'),
     ];
     isLoading.value = false;
   }
