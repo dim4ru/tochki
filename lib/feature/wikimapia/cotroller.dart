@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:tochki/core/models/wikimapia_place.dart';
 
 import '../../core/dto/wikimapia_nearest_result_dto.dart';
 import '../../core/repository.dart';
@@ -8,7 +7,7 @@ import '../../shared/api_constants.dart';
 
 class WikimapiaController extends GetxController {
   var isLoading = false.obs;
-  var places = <WikimapiaPlace>[].obs;
+  var placesNearest = <WikimapiaNearestResultDto>[].obs;
 
 
   final Dio _dio = Dio(); // Создаём экземпляр Dio
@@ -29,9 +28,7 @@ class WikimapiaController extends GetxController {
         54.985235,
         73.368473,
       );
-      // finds first place
-      print(WikimapiaNearestResultDto.fromXml(xmlResponse).title);
-      places.value = [];
+      placesNearest.value = WikimapiaNearestResultDtoList.fromXml(xmlResponse).places;
     } catch (e) {
       // Обработка ошибок
       print("Error fetching places: $e");

@@ -38,7 +38,7 @@ class WikimapiaModal {
                     padding: const EdgeInsets.only(top: TSpacers.spacing5),
                     child: Center(child: TCircularLoader()),
                   )
-                      : controller.places.isEmpty
+                      : controller.placesNearest.isEmpty
                       ? Padding(
                     padding: const EdgeInsets.only(top: TSpacers.spacing5),
                     child: Center(
@@ -51,9 +51,9 @@ class WikimapiaModal {
                       : ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: controller.places.length,
+                      itemCount: controller.placesNearest.length,
                       itemBuilder: (context, index) {
-                        final place = controller.places[index];
+                        final place = controller.placesNearest[index];
                         return SizedBox(
                           width: double.infinity,
                           child: ListTile(
