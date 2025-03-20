@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/lib/shared/api_constants.dart
+/lib/core/repository.g.dart
+/lib/core/models/wikimapia_place.g.dart

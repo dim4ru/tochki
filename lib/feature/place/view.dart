@@ -8,6 +8,7 @@ import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../mock.dart';
+import '../wikimapia/modal.dart';
 
 class Place extends GetView {
   @override
@@ -53,7 +54,7 @@ class Place extends GetView {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      // TODO open wikimapia description modal
+                      WikimapiaModal().showModal(context, 55, 55);
                     },
                     child: Text('Описание из Wikimapia  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
