@@ -7,7 +7,7 @@ import 'package:tochki/shared/routing/routes.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../data/mock.dart';
+import '../../mock.dart';
 
 class Place extends GetView {
   @override
