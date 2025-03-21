@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
-import 'package:tochki/shared/routing/routes.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../mock.dart';
+import '../user_profile/modal.dart';
 import '../wikimapia/modal.dart';
 
 class Place extends GetView {
@@ -79,7 +79,7 @@ class Place extends GetView {
                               style: TTypography.body3,
                             ),
                             onTap: () {
-                              Get.toNamed(TRoutes.userProfile);
+                              UserProfile().showModal(context);
                             },
                           )
                         ],

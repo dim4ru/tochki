@@ -17,51 +17,48 @@ class WikimapiaPlaceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(TSpacers.spacing5),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            placeDto.title.isNotEmpty ? placeDto.title : "Без названия",
-            style: TTypography.headline1.copyWith(color: TColors.white),
-          ),
-          SizedBox(
-            height: TSpacers.spacing3,
-          ),
-          Text(
-            placeDto.description.isNotEmpty ? placeDto.description : "Нет описания",
-            style: TTypography.body2.copyWith(color: TColors.white),
-          ),
-          SizedBox(
-            height: TSpacers.spacing5,
-          ),
-          Row(
-            children: [
-              UiButton.filledSecondary(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          placeDto.title.isNotEmpty ? placeDto.title : "Без названия",
+          style: TTypography.headline1.copyWith(color: TColors.white),
+        ),
+        SizedBox(
+          height: TSpacers.spacing3,
+        ),
+        Text(
+          placeDto.description.isNotEmpty ? placeDto.description : "Нет описания",
+          style: TTypography.body2.copyWith(color: TColors.white),
+        ),
+        SizedBox(
+          height: TSpacers.spacing5,
+        ),
+        Row(
+          children: [
+            UiButton.filledSecondary(
+              iconAlignment: IconAlignment.end,
+              icon: Icon(Icons.arrow_back_rounded, color: TColors.black,),
+              onPressed: onBackPressed,
+            ),
+            SizedBox(width: TSpacers.spacing3,),
+            if (placeDto.url != '')
+            Expanded(
+              child: UiButton.filledSecondary(
                 iconAlignment: IconAlignment.end,
-                icon: Icon(Icons.arrow_back_rounded, color: TColors.black,),
-                onPressed: onBackPressed,
+                icon: Icon(Icons.open_in_browser, color: TColors.black,),
+                onPressed: () async {
+                  final Uri url = Uri.parse(placeDto.url);
+                  await launchUrl(url);
+                },
+                label: Text('Подробнее на wikimapia.org', style: TTypography.body4,),
               ),
-              SizedBox(width: TSpacers.spacing3,),
-              if (placeDto.url != '')
-              Expanded(
-                child: UiButton.filledSecondary(
-                  iconAlignment: IconAlignment.end,
-                  icon: Icon(Icons.open_in_browser, color: TColors.black,),
-                  onPressed: () async {
-                    final Uri url = Uri.parse(placeDto.url);
-                    await launchUrl(url);
-                  },
-                  label: Text('Подробнее на wikimapia.org', style: TTypography.body4,),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: MediaQuery.of(context).padding.bottom),
-        ],
-      ),
+            ),
+          ],
+        ),
+        SizedBox(height: MediaQuery.of(context).padding.bottom),
+      ],
     );
   }
 }

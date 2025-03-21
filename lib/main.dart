@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:tochki/feature/navigation/controller.dart';
 import 'package:tochki/feature/map/view.dart';
 import 'package:tochki/feature/navigation/view.dart';
-import 'package:tochki/shared/routing/pages.dart';
 
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Tochki',
-      getPages: TPages.routes,
+      // getPages: TPages.routes,
       home: const MainView(),
     );
   }
