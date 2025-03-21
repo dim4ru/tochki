@@ -101,7 +101,7 @@ class Place extends GetView {
                       ],
                     ),
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
+                  SizedBox(height: MediaQuery.of(context).padding.bottom),
                 ],
               ),
             )

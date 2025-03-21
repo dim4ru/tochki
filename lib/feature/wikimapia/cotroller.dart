@@ -9,7 +9,7 @@ import '../../shared/api_constants.dart';
 class WikimapiaController extends GetxController {
   var isLoading = false.obs;
   var placesNearest = <WikimapiaNearestResultDto>[].obs;
-  late Rx<WikimapiaPlaceByIdResultDto> place;
+  final Rxn<WikimapiaPlaceByIdResultDto> place = Rxn<WikimapiaPlaceByIdResultDto>(null);
 
   final Dio _dio = Dio(); // Создаём экземпляр Dio
   late WikimapiaRepository _wikimapiaRepository; // Репозиторий
@@ -42,9 +42,9 @@ class WikimapiaController extends GetxController {
         ApiConstants.wikimapiaApiKey,
         id,
       );
-      place = WikimapiaPlaceByIdResultDto.fromXml(xmlResponse).obs;
+      place.value = WikimapiaPlaceByIdResultDto.fromXml(xmlResponse);
     } catch (e) {
-      print("Error fetching places: $e");
+      print("Error fetching place ID $id: $e");
     } finally {
       isLoading.value = false;
     }

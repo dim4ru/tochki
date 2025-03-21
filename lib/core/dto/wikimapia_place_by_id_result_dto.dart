@@ -28,8 +28,8 @@ class WikimapiaPlaceByIdResultDto {
       id: int.parse(wm?.getElement('id')?.innerText ?? '0'),
       title: wm?.getElement('title')?.innerText ?? '',
       description: wm?.getElement('description')?.innerText ?? '',
-      lat: double.parse(wm?.getElement('location')?.getElement('lat')?.innerText ?? '0'),
-      lon: double.parse(wm?.getElement('location')?.getElement('lon')?.innerText ?? '0'),
+      lat: double.parse(wm?.getElement('location')?.getElement('lat')?.innerText ?? '-1'),
+      lon: double.parse(wm?.getElement('location')?.getElement('lon')?.innerText ?? '-1'),
       url: urlHtmlRegExp.firstMatch(wm?.getElement('urlhtml')?.innerText ?? '')?.group(1) ?? '',
     );
   }

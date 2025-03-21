@@ -8,7 +8,11 @@ class TModal {
     showBarModalBottomSheet(
       context: context,
       backgroundColor: TColors.black,
-      builder: (context) => content,
+      builder: (context) => AnimatedSize(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOutSine,
+        child: content,
+      ),
     );
   }
 }
