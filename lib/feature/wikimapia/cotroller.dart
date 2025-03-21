@@ -2,26 +2,25 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 import '../../core/dto/wikimapia_nearest_result_dto.dart';
+import '../../core/dto/wikimapia_place_by_id_result_dto.dart';
 import '../../core/repository.dart';
 import '../../shared/api_constants.dart';
 
 class WikimapiaController extends GetxController {
   var isLoading = false.obs;
   var placesNearest = <WikimapiaNearestResultDto>[].obs;
-
+  late Rx<WikimapiaPlaceByIdResultDto> place;
 
   final Dio _dio = Dio(); // Создаём экземпляр Dio
   late WikimapiaRepository _wikimapiaRepository; // Репозиторий
 
   WikimapiaController() {
-    _wikimapiaRepository = WikimapiaRepository(_dio); // Передаем Dio в репозиторий
+    _wikimapiaRepository = WikimapiaRepository(_dio);
   }
 
-  // Симуляция запроса на сервер (например, с использованием Dio и Retrofit)
   void fetchWikimapiaPlaces() async {
     isLoading.value = true;
     try {
-      // Вызываем метод репозитория для получения ближайших мест
       final xmlResponse = await _wikimapiaRepository.getNearestPlaces(
         ApiConstants.wikimapiaApiKey,
         // TODO from db
@@ -30,7 +29,27 @@ class WikimapiaController extends GetxController {
       );
       placesNearest.value = WikimapiaNearestResultDtoList.fromXml(xmlResponse).places;
     } catch (e) {
-      // Обработка ошибок
+      print("Error fetching places: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  void getWikimapiaPlace(String id) async {
+    isLoading.value = true;
+    try {
+      final xmlResponse = await _wikimapiaRepository.getPlaceById(
+        ApiConstants.wikimapiaApiKey,
+        id,
+      );
+      place = WikimapiaPlaceByIdResultDto.fromXml(xmlResponse).obs;
+      print(place.value.urlHtml);
+      print(place.value.lon);
+      print(place.value.lat);
+      print(place.value.description);
+      print(place.value.title);
+      print(place.value.id);
+    } catch (e) {
       print("Error fetching places: $e");
     } finally {
       isLoading.value = false;

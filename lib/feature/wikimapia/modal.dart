@@ -57,6 +57,7 @@ class WikimapiaModal {
                         return SizedBox(
                           width: double.infinity,
                           child: ListTile(
+                            onTap: () => controller.getWikimapiaPlace(controller.placesNearest[index].id.toString()),
                             contentPadding: EdgeInsets.zero,
                             title: Text(
                               place.title,
