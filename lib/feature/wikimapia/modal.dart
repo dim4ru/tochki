@@ -14,7 +14,12 @@ class WikimapiaModal {
         Obx(() => AnimatedSwitcher(
               duration: Duration(milliseconds: 300),
               child: (controller.place.value != null)
-                  ? WikimapiaPlaceView(placeDto: controller.place.value!)
+                  ? WikimapiaPlaceView(
+                      placeDto: controller.place.value!,
+                      onBackPressed: () {
+                        controller.place.value =
+                            null; // Сбрасываем place в null
+                      })
                   : Container(
                       clipBehavior: Clip.none,
                       padding: EdgeInsets.all(TSpacers.spacing5),

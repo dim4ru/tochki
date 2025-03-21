@@ -36,8 +36,8 @@ class WikimapiaController extends GetxController {
   }
 
   void getWikimapiaPlace(String id) async {
-    isLoading.value = true;
     try {
+      // loads too fast to show indicator (isLoading)
       final xmlResponse = await _wikimapiaRepository.getPlaceById(
         ApiConstants.wikimapiaApiKey,
         id,
@@ -46,7 +46,6 @@ class WikimapiaController extends GetxController {
     } catch (e) {
       print("Error fetching place ID $id: $e");
     } finally {
-      isLoading.value = false;
     }
   }
 

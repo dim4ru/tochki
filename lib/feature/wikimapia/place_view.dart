@@ -7,8 +7,13 @@ import '../../shared/ui_kit/ui_kit.dart';
 
 class WikimapiaPlaceView extends StatelessWidget {
   final WikimapiaPlaceByIdResultDto placeDto;
+  final VoidCallback? onBackPressed;
 
-  const WikimapiaPlaceView({super.key, required this.placeDto});
+  const WikimapiaPlaceView({
+    super.key,
+    required this.placeDto,
+    this.onBackPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +39,12 @@ class WikimapiaPlaceView extends StatelessWidget {
           ),
           Row(
             children: [
+              UiButton.filledSecondary(
+                iconAlignment: IconAlignment.end,
+                icon: Icon(Icons.arrow_back_rounded, color: TColors.black,),
+                onPressed: onBackPressed,
+              ),
+              SizedBox(width: TSpacers.spacing3,),
               if (placeDto.url != '')
               Expanded(
                 child: UiButton.filledSecondary(
