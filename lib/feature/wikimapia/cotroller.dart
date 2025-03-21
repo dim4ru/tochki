@@ -43,12 +43,6 @@ class WikimapiaController extends GetxController {
         id,
       );
       place = WikimapiaPlaceByIdResultDto.fromXml(xmlResponse).obs;
-      print(place.value.urlHtml);
-      print(place.value.lon);
-      print(place.value.lat);
-      print(place.value.description);
-      print(place.value.title);
-      print(place.value.id);
     } catch (e) {
       print("Error fetching places: $e");
     } finally {
