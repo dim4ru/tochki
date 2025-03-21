@@ -97,7 +97,7 @@ class Place extends GetView {
                       children: [
                         Text('PointID: 9634', style: TTypography.caption2.copyWith(color: Colors.grey),),
                         SizedBox(width: TSpacers.spacing2,),
-                        Icon(Icons.copy_sharp, color: Colors.grey, size: TSpacers.spacing4,)
+                        Icon(Icons.copy_rounded, color: Colors.grey, size: TSpacers.spacing4,)
                       ],
                     ),
                   ),
