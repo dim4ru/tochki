@@ -10,11 +10,16 @@ import 'package:ui_kit/ui_kit.dart';
 
 import '../../data/mock.dart';
 
-class Place extends GetView {
-  final PlaceController controller = Get.put(PlaceController());
+class Place extends GetView<PlaceController> {
+  final int id;
+
+  Place({super.key, required this.id});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    Get.put(PlaceController(placeId: id));
+
+    return Obx(() => controller.place.value == null ? CircularProgressIndicator() : Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
         title: Text('Точка', style: TTypography.headline2.copyWith(color: TColors.white),),
@@ -38,7 +43,7 @@ class Place extends GetView {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Very-very long place name',
+                    controller.place.value!.name,
                     style: TTypography.promo,
                   ),
                   PlaceStatsRow(
@@ -47,7 +52,7 @@ class Place extends GetView {
                     reviewsCount: 3,
                   ),
                   Text(
-                    loremXS,
+                    controller.place.value!.description,
                     style: TTypography.body2,
                   ),
                   SizedBox(
@@ -109,6 +114,6 @@ class Place extends GetView {
           ],
         ),
       ),
-    );
+    ));
   }
 }
