@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:tochki/feature/place/controller.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
@@ -10,6 +11,7 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../data/mock.dart';
 
 class Place extends GetView {
+  final PlaceController controller = Get.put(PlaceController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
