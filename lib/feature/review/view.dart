@@ -7,7 +7,7 @@ import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../mock.dart';
-import '../../shared/ui_kit/rating_buttons/like_dislike_button.dart';
+import '../../shared/ui_kit/rating_buttons/vote_button.dart';
 
 class Review extends GetView {
   @override
@@ -34,7 +34,7 @@ class Review extends GetView {
           children: [
             PhotosRow(imageUrls: imageUrls),
             Padding(
-              padding: const EdgeInsets.all(TSpacers.spacing5),
+              padding: const EdgeInsets.fromLTRB(TSpacers.spacing5, TSpacers.spacing4, TSpacers.spacing5, TSpacers.spacing5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -59,10 +59,7 @@ class Review extends GetView {
                   SizedBox(
                     height: TSpacers.spacing5,
                   ),
-                  SizedBox(
-                    height: TSpacers.spacing3,
-                  ),
-                  LikeDislikeButton(),
+                  VoteButton.loading(),
                   SizedBox(
                     height: TSpacers.spacing5,
                   ),
