@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:tochki/shared/ui_kit/spacers.dart';
 import 'package:ui_kit/ui_kit.dart';
+
+import '../../review/view.dart';
 
 class PlaceStatsRow extends StatelessWidget {
   final double rating;
@@ -22,7 +26,7 @@ class PlaceStatsRow extends StatelessWidget {
         children: [
           UiButton.text(onPressed: (){}, label: Text("${rating.toStringAsFixed(0)}%"), icon: Icon(Icons.thumbs_up_down_outlined),),
           UiButton.text(onPressed: (){}, label: Text(visited.toString()), icon: Icon(CupertinoIcons.person_2),),
-          UiButton.text(onPressed: (){}, label: Text('Рецензии ($reviewsCount)  ❯', style: TextStyle(fontWeight: FontWeight.bold)), icon: Icon(Icons.rate_review_outlined),),
+          UiButton.text(onPressed: (){Get.to(() => Review());}, label: Text('Рецензии ($reviewsCount)  ❯', style: TextStyle(fontWeight: FontWeight.bold)), icon: Icon(Icons.rate_review_outlined),),
         ],
       ),
     );
