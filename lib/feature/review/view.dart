@@ -42,19 +42,25 @@ class Review extends GetView {
                     'Очень крутая атмосфера',
                     style: TTypography.promo,
                   ),
+                  Row(
+                    children: [
+                      Text('Точка: '),
+                      GestureDetector(
+                        child: Text(
+                          'Гаупвахта ❯',
+                          style: TTypography.body3,
+                        ),
+                        onTap: () async {
+                          // todo get by point id
+                          Get.to(() => Place());
+                        },
+                      )
+                    ],
+                  ),
+                  SizedBox(height: TSpacers.spacing5,),
                   Text(
                     loremXS,
                     style: TTypography.body2,
-                  ),
-                  SizedBox(
-                    height: TSpacers.spacing3,
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      // todo get by point id
-                      Get.to(() => Place());
-                    },
-                    child: Text('Перейти к точке  ❯', style: TTypography.body3),
                   ),
                   SizedBox(
                     height: TSpacers.spacing5,
