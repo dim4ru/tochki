@@ -9,6 +9,7 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../mock.dart';
 import '../user_profile/modal.dart';
 import '../wikimapia/modal.dart';
+import 'form/form.dart';
 
 class Place extends GetView {
   @override
@@ -57,6 +58,15 @@ class Place extends GetView {
                       WikimapiaModal().showModal(context, 55, 55);
                     },
                     child: Text('Описание из Wikimapia  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(
+                    height: TSpacers.spacing3,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      Get.to(() => PlaceForm());
+                    },
+                    child: Text('Править точку  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: TSpacers.spacing5,),
                   SizedBox(
