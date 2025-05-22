@@ -6,9 +6,11 @@ import 'package:tochki/feature/navigation/view.dart';
 
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
+import 'feature/place/edits_history/place_edits_list_controller.dart';
 
 void main() {
   Get.put(PermanentMarkerController());
+  Get.put(PlaceEditsController());
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

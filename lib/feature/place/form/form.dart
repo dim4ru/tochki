@@ -7,6 +7,8 @@ import 'package:ui_kit/ui_kit.dart';
 
 import '../../../mock.dart';
 import '../../../shared/ui_kit/ui_kit.dart';
+import '../edits_history/place_edits_list.dart';
+import '../view.dart';
 
 class PlaceForm extends GetView {
   @override
@@ -22,6 +24,18 @@ class PlaceForm extends GetView {
           ),
           onPressed: () => Get.back(),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(
+                  PlaceEditsList(),
+                );
+              },
+              icon: Icon(
+                Icons.history_sharp,
+                color: TColors.white,
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -108,7 +122,9 @@ class PlaceForm extends GetView {
                   SizedBox(height: TSpacers.spacing3,),
                   GestureDetector(
                     onTap: () async {
-                      Get.to(() => PlaceForm());
+                      Get.to(
+                        PlaceEditsList(),
+                      );
                     },
                     child: Text('История правок  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
