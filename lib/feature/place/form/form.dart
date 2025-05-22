@@ -22,7 +22,6 @@ class PlaceForm extends GetView {
           ),
           onPressed: () => Get.back(),
         ),
-        // actions: [DistanceBadge(distance: '2,3km')],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -34,6 +33,42 @@ class PlaceForm extends GetView {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Координаты точки',
+                            style: TTypography.caption2,
+                          ),
+                          SizedBox(height: TSpacers.spacing3,),
+                          GestureDetector(
+                            onTap: () async {
+                              await Clipboard.setData(ClipboardData(text: 'sampleid'));
+                            },
+                            child: Row(
+                              children: [
+                                Text('55.125995, 48.225100',
+                                    style: TextStyle(fontWeight: FontWeight.bold)),
+                                SizedBox(width: TSpacers.spacing3,),
+                                Icon(Icons.copy_sharp, size: TSpacers.spacing5),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      UiButton.filledPrimary(
+                        onPressed: () {
+                        },
+                        icon: Icon(Icons.pin_drop_outlined),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: TSpacers.spacing5,),
+                  // TODO placeholder max symbols
                   Text(
                     'Название (заголовок) точки',
                     style: TTypography.caption2,
@@ -53,36 +88,16 @@ class PlaceForm extends GetView {
                     variant: UiTextFieldVariant.long,
                   ),
                   SizedBox(height: TSpacers.spacing5,),
+                  // TODO placeholder max symbols
                   Text(
-                    'Координаты точки',
+                    'Краткое описание правки (отображается в истории правок)',
                     style: TTypography.caption2,
                   ),
                   SizedBox(height: TSpacers.spacing3,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          await Clipboard.setData(ClipboardData(text: 'sampleid'));
-                        },
-                        child: Row(
-                          children: [
-                            Text('55.125995, 48.225100',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(width: TSpacers.spacing3,),
-                            Icon(Icons.copy_sharp, size: TSpacers.spacing5),
-                          ],
-                        ),
-                      ),
-                      UiButton.filledPrimary(
-                        onPressed: () {
-                        },
-                        icon: Icon(Icons.pin_drop_outlined),
-                      ),
-                    ],
+                  UiTextField.standard(
+
                   ),
                   SizedBox(height: TSpacers.spacing5,),
-
                   SizedBox(
                     width: double.infinity,
                     child: UiButton.filledPrimary(
