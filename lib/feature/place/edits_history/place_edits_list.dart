@@ -14,28 +14,16 @@ class PlaceEditsList extends GetView<PlaceEditsController> {
       appBar: AppBar(
         backgroundColor: TColors.black,
         title: Text(
-          'Правка точки',
+          'История правок',
           style: TTypography.headline2.copyWith(color: TColors.white),
         ),
         leading: IconButton(
           icon: Icon(
-            Icons.cancel_outlined,
+            Icons.chevron_left_sharp,
             color: TColors.white,
           ),
           onPressed: () => Get.back(),
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Get.to(
-                  PlaceEditsList(),
-                );
-              },
-              icon: Icon(
-                Icons.history_sharp,
-                color: TColors.white,
-              ))
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -43,15 +31,19 @@ class PlaceEditsList extends GetView<PlaceEditsController> {
           children: [
             Padding(
                 padding: const EdgeInsets.all(TSpacers.spacing5),
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PlaceEditsListItem(edit: controller.edits[index]);
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(width: TSpacers.spacing2);
-                    },
-                    itemCount: controller.edits.length))
+                child: Text(
+                  'Выбранная версия точки будет отображаться вместо текущей',
+                  style: TTypography.headline2,
+                )),
+            ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return PlaceEditsListItem(edit: controller.edits[index]);
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return SizedBox(width: TSpacers.spacing3);
+                },
+                itemCount: controller.edits.length),
           ],
         ),
       ),
