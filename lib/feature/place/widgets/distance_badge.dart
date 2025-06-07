@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:tochki/shared/ui_kit/snackbar.dart';
 import 'package:tochki/shared/ui_kit/typography.dart';
 import '../../../shared/ui_kit/colors.dart';
 
@@ -64,8 +66,9 @@ class _DistanceBadgeState extends State<DistanceBadge> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // Можно, например, открыть карту
+      onTap: () async {
+        await Clipboard.setData(ClipboardData(text: 'sampleid'));
+        TSnackbar.show(context, 'Координаты точки скопированы в буфер обмена');
       },
       child: Padding(
         padding: const EdgeInsets.only(right: 16),

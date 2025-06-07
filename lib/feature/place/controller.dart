@@ -32,6 +32,7 @@ class PlaceController extends GetxController {
     final visitsData = await Supabase.instance.client
         .from('visits').select()
         .eq('place_id', placeId)
+        //TODO get from auth
         .eq('user_id', 1337);
 
     final reviewData = await Supabase.instance.client
@@ -54,6 +55,13 @@ class PlaceController extends GetxController {
         reviewsCount: reviewData.length,
       );
     }
+
+    await Supabase.instance.client
+        .from('visits').select()
+        .eq('place_id', placeId)
+        //TODO get from auth
+        .eq('user_id', 1337)
+        .then((value) => isVisited.value = value.isNotEmpty);
   }
 }
 
