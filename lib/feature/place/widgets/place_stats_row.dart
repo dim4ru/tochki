@@ -7,7 +7,7 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../review/view.dart';
 
 class PlaceStatsRow extends StatelessWidget {
-  final double rating;
+  final double? rating;
   final int visited;
   final int reviewsCount;
 
@@ -24,7 +24,13 @@ class PlaceStatsRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          UiButton.text(onPressed: (){}, label: Text("${rating.toStringAsFixed(0)}%"), icon: Icon(Icons.thumbs_up_down_outlined),),
+          UiButton.text(
+            onPressed: (){},
+            label: rating != null 
+                ? Text("${rating!.toStringAsFixed(0)}%")
+                : const Text("- %"),
+            icon: const Icon(Icons.thumbs_up_down_outlined),
+          ),
           UiButton.text(onPressed: (){}, label: Text(visited.toString()), icon: Icon(CupertinoIcons.person_2),),
           UiButton.text(onPressed: (){Get.to(() => Review());}, label: Text('Рецензии ($reviewsCount)  ❯', style: TextStyle(fontWeight: FontWeight.bold)), icon: Icon(Icons.rate_review_outlined),),
         ],

@@ -8,8 +8,9 @@ import 'package:ui_kit/ui_kit.dart';
 
 import '../../mock.dart';
 import '../../shared/ui_kit/rating_buttons/vote_button.dart';
+import 'controller.dart';
 
-class Review extends GetView {
+class Review extends GetView<ReviewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +40,7 @@ class Review extends GetView {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Очень крутая атмосфера',
+                    controller.review.value?.title ?? '-',
                     style: TTypography.promo,
                   ),
                   Row(
@@ -47,7 +48,7 @@ class Review extends GetView {
                       Text('Точка: '),
                       GestureDetector(
                         child: Text(
-                          'Гаупвахта ❯',
+                          '${controller.correspondingPlaceName} ❯',
                           style: TTypography.body3,
                         ),
                         onTap: () async {
@@ -59,7 +60,7 @@ class Review extends GetView {
                   ),
                   SizedBox(height: TSpacers.spacing5,),
                   Text(
-                    loremXS,
+                    controller.review.value?.body ?? '-',
                     style: TTypography.body2,
                   ),
                   SizedBox(
@@ -77,7 +78,7 @@ class Review extends GetView {
                           Text('Написал '),
                           GestureDetector(
                             child: Text(
-                              'dim4 ❯',
+                              '${controller.correspondingPlaceName.value} ❯',
                               style: TTypography.body3,
                             ),
                             onTap: () {
@@ -94,13 +95,13 @@ class Review extends GetView {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      await Clipboard.setData(ClipboardData(text: 'sampleid'));
+                      await Clipboard.setData(ClipboardData(text: controller.review.value?.id.toString() ?? ''));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ReviewID: 9634',
+                          'ReviewID: ${controller.review.value?.id.toString()}',
                           style:
                               TTypography.caption2.copyWith(color: Colors.grey),
                         ),
