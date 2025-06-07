@@ -9,6 +9,7 @@ import 'package:ui_kit/ui_kit.dart';
 
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
+import 'feature/place/edits_history/place_edits_list_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ void main() async {
   );
 
   Get.put(PermanentMarkerController());
+  Get.put(PlaceEditsController());
   runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {

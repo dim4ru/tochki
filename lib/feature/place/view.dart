@@ -11,6 +11,7 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../mock.dart';
 import '../user_profile/modal.dart';
 import '../wikimapia/modal.dart';
+import 'form/form.dart';
 
 class Place extends GetView<PlaceController> {
   final int id;
@@ -65,6 +66,15 @@ class Place extends GetView<PlaceController> {
                       WikimapiaModal().showModal(context, controller.place.value?.latitude, controller.place.value?.longitude);
                     },
                     child: Text('Описание из Wikimapia  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(
+                    height: TSpacers.spacing3,
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      Get.to(() => PlaceForm());
+                    },
+                    child: Text('Править точку  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: TSpacers.spacing5,),
                   WasHereButton(name: 'dim4'),
