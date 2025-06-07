@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:tochki/feature/place/controller.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
@@ -74,7 +75,9 @@ class Place extends GetView<PlaceController> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      Get.to(() => PlaceForm());
+                      Get.to(() => PlaceForm(
+                        formType: FormType.edit,
+                      ));
                     },
                     child: Text('Править точку  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
@@ -124,8 +127,13 @@ class Place extends GetView<PlaceController> {
                           )
                         ],
                       ),
-                      Text('6 марта 2025'),
-                    ],
+                      Text(
+                        controller.place.value?.createdAt != null
+                            ? DateFormat('d MMMM yyyy', 'ru')
+                            .format(controller.place.value!.createdAt!)
+                            : '',
+                        style: TTypography.body3,
+                      ),                    ],
                   ),
                   SizedBox(height: TSpacers.spacing5,),
                   GestureDetector(

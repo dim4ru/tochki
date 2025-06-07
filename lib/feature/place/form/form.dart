@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
@@ -8,11 +10,23 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../../mock.dart';
 import '../../../shared/ui_kit/ui_kit.dart';
 import '../edits_history/place_edits_list.dart';
-import '../view.dart';
+import 'controller.dart';
 
-class PlaceForm extends GetView {
+enum FormType {
+  create,
+  edit,
+}
+
+class PlaceForm extends GetView<PlaceFormController> {
+  final FormType formType;
+  final LatLng? location;
+
+  PlaceForm({Key? key, required this.formType, this.location}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    Get.put(PlaceFormController());
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,

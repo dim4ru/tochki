@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tochki/feature/navigation/controller.dart';
 import 'package:tochki/feature/map/view.dart';
@@ -13,6 +15,7 @@ import 'feature/navigation/model.dart';
 import 'feature/place/edits_history/place_edits_list_controller.dart';
 
 void main() async {
+  Intl.defaultLocale = 'ru';
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: "assets/env_file/.env");
@@ -49,6 +52,14 @@ class MyApp extends StatelessWidget {
       ),
       themeMode: ThemeMode.system, // Поддержка светлой/тёмной темы
       // getPages: TPages.routes,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ru'),
+      ],
       home: const MainView(),
     );
   }

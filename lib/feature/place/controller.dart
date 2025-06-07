@@ -51,6 +51,9 @@ class PlaceController extends GetxController {
         latitude: row['latitude'],
         longitude: row['longitude'],
         rating: row['rating'],
+        createdAt: row['created_at'] != null
+            ? DateTime.parse(row['created_at'] as String)
+            : null,
         visitorCount: visitsData.length,
         reviewsCount: reviewData.length,
       );

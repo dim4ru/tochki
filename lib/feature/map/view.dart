@@ -6,6 +6,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:tochki/feature/map/controller.dart';
 
+import '../place/form/form.dart';
+
 class MapView extends GetView<MapController> {
   const MapView({super.key});
 
@@ -19,11 +21,20 @@ class MapView extends GetView<MapController> {
           initialZoom: 15,
           onMapEvent: (event) {
             if (event is fm.MapEventMoveEnd) {
-              // Получаем LatLngBounds видимой области
               final bounds = event.camera.visibleBounds;
-              // Передаём их в контроллер для загрузки точек
               controller.onMapMoved(bounds);
             }
+          },
+          onLongPress: (tapPos, latLng) {
+            // Переход на форму и передача latLng
+            Get.to(
+              () => PlaceForm(
+                formType: FormType.create,
+              ),
+              transition: Transition.downToUp,
+              duration: const Duration(milliseconds: 300),
+              arguments: latLng,
+            );
           },
         ),
         children: [
