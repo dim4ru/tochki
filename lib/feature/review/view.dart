@@ -52,7 +52,7 @@ class Review extends GetView {
                         ),
                         onTap: () async {
                           // todo get by point id
-                          Get.to(() => Place());
+                          Get.to(() => Place(id: 7,));
                         },
                       )
                     ],

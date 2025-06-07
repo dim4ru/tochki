@@ -4,12 +4,12 @@ import 'package:tochki/feature/place/controller.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
-import 'package:tochki/shared/routing/routes.dart';
 import 'package:tochki/shared/ui_kit/rating_buttons/was_here_button.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../mock.dart';
+import '../user_profile/modal.dart';
 import '../wikimapia/modal.dart';
 
 class Place extends GetView<PlaceController> {
@@ -62,7 +62,7 @@ class Place extends GetView<PlaceController> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      WikimapiaModal().showModal(context, 55, 55);
+                      WikimapiaModal().showModal(context, controller.place.value?.latitude, controller.place.value?.longitude);
                     },
                     child: Text('Описание из Wikimapia  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
@@ -81,7 +81,7 @@ class Place extends GetView<PlaceController> {
                               style: TTypography.body3,
                             ),
                             onTap: () {
-                              Get.toNamed(TRoutes.userProfile);
+                              UserProfile().showModal(context);
                             },
                           )
                         ],
@@ -97,7 +97,7 @@ class Place extends GetView<PlaceController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('PointID: 9634', style: TTypography.caption2.copyWith(color: Colors.grey),),
+                        Text('PointID: $id', style: TTypography.caption2.copyWith(color: Colors.grey),),
                         SizedBox(width: TSpacers.spacing2,),
                         Icon(Icons.copy_rounded, color: Colors.grey, size: TSpacers.spacing4,)
                       ],

@@ -7,6 +7,8 @@ import '../../core/repository.dart';
 import '../../shared/api_constants.dart';
 
 class WikimapiaController extends GetxController {
+  final RxnDouble lat = RxnDouble();
+  final RxnDouble lon = RxnDouble();
   var isLoading = false.obs;
   var placesNearest = <WikimapiaNearestResultDto>[].obs;
   final Rxn<WikimapiaPlaceByIdResultDto> place = Rxn<WikimapiaPlaceByIdResultDto>(null);
@@ -20,20 +22,26 @@ class WikimapiaController extends GetxController {
 
   void fetchWikimapiaPlaces() async {
     isLoading.value = true;
-    try {
-      final xmlResponse = await _wikimapiaRepository.getNearestPlaces(
-        ApiConstants.wikimapiaApiKey,
-        // TODO from db
-        54.985235,
-        73.368473,
-      );
-      placesNearest.value = WikimapiaNearestResultDtoList.fromXml(xmlResponse).places;
-    } catch (e) {
-      print("Error fetching places: $e");
-    } finally {
+    if (lat.value != null && lon.value != null) {
+      try {
+        final xmlResponse = await _wikimapiaRepository.getNearestPlaces(
+          ApiConstants.wikimapiaApiKey,
+          lat.value!,
+          lon.value!,
+        );
+        print("Results for ${lat.value}; ${lon.value}");
+        placesNearest.value = WikimapiaNearestResultDtoList.fromXml(xmlResponse).places;
+      } catch (e) {
+        print("Error fetching places: $e");
+      } finally {
+        isLoading.value = false;
+      }
+    } else {
       isLoading.value = false;
+      print("Wikimapia coordinates are null");
     }
   }
+
 
   void getWikimapiaPlace(String id) async {
     try {
@@ -53,6 +61,6 @@ class WikimapiaController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchWikimapiaPlaces();
+    // fetchWikimapiaPlaces();
   }
 }

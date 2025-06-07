@@ -8,13 +8,11 @@ import '../place/view.dart';
 import 'controller.dart';
 
 class PermanentMarker extends Marker {
-  final String? imageUrl;
   final String text;
 
   PermanentMarker({
     required super.point,
     required int markerId,
-    this.imageUrl,
     required this.text,
   }) : super(
           width: 100,
@@ -24,8 +22,7 @@ class PermanentMarker extends Marker {
               return GestureDetector(
                 onTap: () {
                   Get.to(
-                    // todo get from map
-                    Place(id: 7,),
+                    Place(id: markerId,),
                     transition: Transition.downToUp,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,

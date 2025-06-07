@@ -9,6 +9,11 @@ class WikimapiaModal {
   final WikimapiaController controller = Get.put(WikimapiaController());
 
   void showModal(BuildContext context, lat, lon) {
+    controller.lat.value = lat;
+    controller.lon.value = lon;
+
+    controller.fetchWikimapiaPlaces();
+
     TModal.showTModal(
         context,
         Obx(() => AnimatedSwitcher(
@@ -18,7 +23,7 @@ class WikimapiaModal {
                       placeDto: controller.place.value!,
                       onBackPressed: () {
                         controller.place.value =
-                            null; // Сбрасываем place в null
+                            null;
                       })
                   : Column(
                       mainAxisSize: MainAxisSize.min,

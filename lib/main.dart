@@ -5,7 +5,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tochki/feature/navigation/controller.dart';
 import 'package:tochki/feature/map/view.dart';
 import 'package:tochki/feature/navigation/view.dart';
-import 'package:tochki/shared/routing/pages.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import 'feature/marker/controller.dart';
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
         ],
       ),
       themeMode: ThemeMode.system, // Поддержка светлой/тёмной темы
-      getPages: TPages.routes,
+      // getPages: TPages.routes,
       home: const MainView(),
     );
   }

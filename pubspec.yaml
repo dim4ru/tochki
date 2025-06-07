@@ -44,6 +44,11 @@ dependencies:
   shimmer: ^3.0.0
   supabase_flutter: ^2.8.4
   flutter_dotenv: ^5.2.1
+  modal_bottom_sheet: ^3.0.0
+  dio: ^5.8.0+1
+  xml: ^6.5.0
+  retrofit: ^4.4.2
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
