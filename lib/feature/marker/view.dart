@@ -24,7 +24,8 @@ class PermanentMarker extends Marker {
               return GestureDetector(
                 onTap: () {
                   Get.to(
-                    Place(),
+                    // todo get from map
+                    Place(id: 7,),
                     transition: Transition.downToUp,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,

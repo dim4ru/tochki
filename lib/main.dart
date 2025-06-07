@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tochki/feature/navigation/controller.dart';
 import 'package:tochki/feature/map/view.dart';
 import 'package:tochki/feature/navigation/view.dart';
@@ -9,7 +11,17 @@ import 'package:ui_kit/ui_kit.dart';
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: "assets/env_file/.env");
+  String supabaseUrl = dotenv.env['SUPABASE_URL']!;
+  String supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY']!;
+  await Supabase.initialize(
+    url: supabaseUrl,
+    anonKey: supabaseAnonKey,
+  );
+
   Get.put(PermanentMarkerController());
   runApp(const MyApp());
 }
