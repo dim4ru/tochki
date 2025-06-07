@@ -101,8 +101,7 @@ class Place extends GetView<PlaceController> {
                       },
                       label: Text('Здесь был dim4', style: TTypography.body3,),
                     ) :
-                    UiButton.filledPrimary(
-                      enabled: false,
+                    UiButton.filledSecondary(
                       onPressed: (){},
                       label: Text('Вы здесь уже были', style: TTypography.body4,),
                     )

@@ -7,6 +7,7 @@ import 'package:tochki/feature/map/view.dart';
 import 'package:tochki/feature/navigation/view.dart';
 import 'package:ui_kit/ui_kit.dart';
 
+import 'feature/map/controller.dart';
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
 import 'feature/place/edits_history/place_edits_list_controller.dart';
@@ -22,6 +23,7 @@ void main() async {
     anonKey: supabaseAnonKey,
   );
 
+  Get.put(MapController());
   Get.put(PermanentMarkerController());
   Get.put(PlaceEditsController());
   runApp(const MyApp());
