@@ -8,9 +8,11 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../../shared/ui_kit/colors.dart';
 
 class PhotosRow extends StatelessWidget {
-  const PhotosRow({super.key, required this.imageUrls});
+  const PhotosRow({super.key, required this.imageUrls, this.uploadButton = false, this.showAllButton = false});
 
   final imageUrls;
+  final bool uploadButton;
+  final bool showAllButton;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class PhotosRow extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: imageUrls.length,
             itemBuilder: (context, index) {
-              if (index == 0) {
+              if (uploadButton && index == 0) {
                 return Container(
                   color: TColors.black,
                   width: MediaQuery.sizeOf(context).width * 0.15,
@@ -53,16 +55,19 @@ class PhotosRow extends StatelessWidget {
             },
           ),
         ),
-        SizedBox(height: TSpacers.spacing2),
-        Container(
-          color: TColors.black,
-          height: MediaQuery.sizeOf(context).width * 0.08,
-          width: double.infinity,
-          child: UiButton.text(
-            onPressed: () {},
-            label: Text(
-              'Все фото (9)',
-              style: TTypography.caption1.copyWith(color: TColors.white),
+        if(showAllButton)
+        Padding(
+          padding: const EdgeInsets.only(top: TSpacers.spacing2),
+          child: Container(
+            color: TColors.black,
+            height: MediaQuery.sizeOf(context).width * 0.08,
+            width: double.infinity,
+            child: UiButton.text(
+              onPressed: () {},
+              label: Text(
+                'Все фото (9)',
+                style: TTypography.caption1.copyWith(color: TColors.white),
+              ),
             ),
           ),
         ),

@@ -1,73 +1,80 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tochki/feature/place/widgets/distance_badge.dart';
+import 'package:tochki/feature/place/view.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
-import 'package:tochki/feature/place/widgets/place_stats_row.dart';
 import 'package:tochki/shared/routing/routes.dart';
-import 'package:tochki/shared/ui_kit/rating_buttons/was_here_button.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../mock.dart';
-import '../wikimapia/modal.dart';
+import '../../shared/ui_kit/rating_buttons/vote_button.dart';
 
-class Place extends GetView {
+class Review extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
-        title: Text('Точка', style: TTypography.headline2.copyWith(color: TColors.white),),
+        title: Text(
+          'Рецензия',
+          style: TTypography.headline2.copyWith(color: TColors.white),
+        ),
         leading: IconButton(
           icon: Icon(
-            Icons.keyboard_arrow_down,
+            Icons.keyboard_arrow_left,
             color: TColors.white,
           ),
           onPressed: () => Get.back(),
         ),
-        actions: [DistanceBadge(distance: '2,3km')],
+        // actions: [DistanceBadge(distance: '2,3km')],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PhotosRow(imageUrls: imageUrls, uploadButton: true, showAllButton: true,),
+            PhotosRow(imageUrls: imageUrls),
             Padding(
-              padding: const EdgeInsets.all(TSpacers.spacing5),
+              padding: const EdgeInsets.fromLTRB(TSpacers.spacing5, TSpacers.spacing4, TSpacers.spacing5, TSpacers.spacing5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Very-very long place name',
+                    'Очень крутая атмосфера',
                     style: TTypography.promo,
                   ),
-                  PlaceStatsRow(
-                    rating: 67.0,
-                    visited: 14,
-                    reviewsCount: 3,
+                  Row(
+                    children: [
+                      Text('Точка: '),
+                      GestureDetector(
+                        child: Text(
+                          'Гаупвахта ❯',
+                          style: TTypography.body3,
+                        ),
+                        onTap: () async {
+                          // todo get by point id
+                          Get.to(() => Place());
+                        },
+                      )
+                    ],
                   ),
+                  SizedBox(height: TSpacers.spacing5,),
                   Text(
                     loremXS,
                     style: TTypography.body2,
                   ),
                   SizedBox(
-                    height: TSpacers.spacing3,
+                    height: TSpacers.spacing5,
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      WikimapiaModal().showModal(context, 55, 55);
-                    },
-                    child: Text('Описание из Wikimapia  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
+                  VoteButton.loading(),
+                  SizedBox(
+                    height: TSpacers.spacing5,
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
-                  WasHereButton(name: 'dim4'),
-                  SizedBox(height: TSpacers.spacing5,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          Text('Добавил '),
+                          Text('Написал '),
                           GestureDetector(
                             child: Text(
                               'dim4 ❯',
@@ -82,7 +89,9 @@ class Place extends GetView {
                       Text('6 марта 2025'),
                     ],
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
+                  SizedBox(
+                    height: TSpacers.spacing5,
+                  ),
                   GestureDetector(
                     onTap: () async {
                       await Clipboard.setData(ClipboardData(text: 'sampleid'));
@@ -90,9 +99,19 @@ class Place extends GetView {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('PointID: 9634', style: TTypography.caption2.copyWith(color: Colors.grey),),
-                        SizedBox(width: TSpacers.spacing2,),
-                        Icon(Icons.copy_rounded, color: Colors.grey, size: TSpacers.spacing4,)
+                        Text(
+                          'ReviewID: 9634',
+                          style:
+                              TTypography.caption2.copyWith(color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: TSpacers.spacing2,
+                        ),
+                        Icon(
+                          Icons.copy_rounded,
+                          color: Colors.grey,
+                          size: TSpacers.spacing4,
+                        )
                       ],
                     ),
                   ),
