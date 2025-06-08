@@ -4,8 +4,12 @@ import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../core/dto/place_dto.dart';
+import '../authorization/controller.dart';
 
 class PlaceController extends GetxController {
+  final isLoading = true.obs;
+  final isError = false.obs;
+
   final int placeId;
   final RxBool isVisited = false.obs;
   final Rxn<PlaceDTO> place = Rxn<PlaceDTO>();
@@ -15,25 +19,28 @@ class PlaceController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    isLoading.value = true;
     _fetchPlace();
+    isLoading.value = false;
   }
 
   void registerVisit() async {
     await Supabase.instance.client
-        .from('visits').insert({'place_id': placeId, 'user_id': 1337});
+        .from('visits').insert({'place_id': placeId, 'user_id': Get.find<AuthController>().user?.id});
     isVisited.value = true;
   }
 
   void _fetchPlace() async {
+    final auth = Get.find<AuthController>();
+
     final placeData = await Supabase.instance.client
         .from('places').select()
         .eq('id', placeId);
 
-    final visitsData = await Supabase.instance.client
+    final visitsData = auth.user == null ? [] : await Supabase.instance.client
         .from('visits').select()
         .eq('place_id', placeId)
-        //TODO get from auth
-        .eq('user_id', 1337);
+        .eq('user_id', auth.user!.id);
 
     final reviewData = await Supabase.instance.client
         .from('reviews').select()
@@ -51,6 +58,7 @@ class PlaceController extends GetxController {
         latitude: row['latitude'],
         longitude: row['longitude'],
         rating: row['rating'],
+        authorName: await auth.getUsernameById(row['author_id']),
         createdAt: row['created_at'] != null
             ? DateTime.parse(row['created_at'] as String)
             : null,
@@ -62,8 +70,7 @@ class PlaceController extends GetxController {
     await Supabase.instance.client
         .from('visits').select()
         .eq('place_id', placeId)
-        //TODO get from auth
-        .eq('user_id', 1337)
+        .eq('user_id', auth.user!.id)
         .then((value) => isVisited.value = value.isNotEmpty);
   }
 }

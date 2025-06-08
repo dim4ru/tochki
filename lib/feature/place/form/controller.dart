@@ -3,6 +3,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../authorization/controller.dart';
+
 class PlaceFormController extends GetxController {
   late final TextEditingController pointNameFieldController;
   late final TextEditingController descriptionFieldController;
@@ -30,14 +32,12 @@ class PlaceFormController extends GetxController {
   }
 
   Future<void> createPlace() async {
-    print('called');
     await Supabase.instance.client.from('places').insert({
       'name': pointNameFieldController.text,
       'description': descriptionFieldController.text,
       'latitude': location.value!.latitude,
       'longitude': location.value!.longitude,
-      //TODO INSERT AUTH ID
-      'author_id': 1,
+      'author_id': Get.find<AuthController>().user?.id,
     });
   }
 

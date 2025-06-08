@@ -9,6 +9,8 @@ import 'package:tochki/feature/map/view.dart';
 import 'package:tochki/feature/navigation/view.dart';
 import 'package:ui_kit/ui_kit.dart';
 
+import 'feature/authorization/controller.dart';
+import 'feature/authorization/view.dart';
 import 'feature/map/controller.dart';
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
@@ -26,6 +28,7 @@ void main() async {
     anonKey: supabaseAnonKey,
   );
 
+  Get.put(AuthController());
   Get.put(MapController());
   Get.put(PermanentMarkerController());
   Get.put(PlaceEditsController());
@@ -51,7 +54,12 @@ class MyApp extends StatelessWidget {
         ],
       ),
       themeMode: ThemeMode.system, // Поддержка светлой/тёмной темы
-      // getPages: TPages.routes,
+      // initialRoute: Get.find<AuthController>().session != null ? '/home' : '/auth',
+      initialRoute: '/home',
+      getPages: [
+        GetPage(name: '/auth', page: () => const AuthPage()),
+        GetPage(name: '/home', page: () => const MainView()),
+      ],
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -60,7 +68,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('ru'),
       ],
-      home: const MainView(),
+      home: Get.find<AuthController>().session != null ? const MainView() : const AuthPage(),
     );
   }
 }
@@ -72,16 +80,21 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(MainScreenController());
 
+
     final appBarTabs = [
       AppBarItem(item: AppBarTab(title: 'Точки', onTap: () => controller.changeTab(0))),
       AppBarItem(item: AppBarTab(title: 'Рецензии', onTap: () => controller.changeTab(1))),
-      AppBarItem(item: AppBarTab(title: 'Временное', onTap: () => controller.changeTab(2))),
-      AppBarItem(item: AppBarTab(title: 'Профиль', onTap: () => controller.changeTab(3))),
+      AppBarItem(
+          item: Get.find<AuthController>().guestMode
+              ? AppBarTab(title: 'Войти', onTap: () => controller.changeTab(3))
+              : AppBarTab(
+                  title: 'Профиль', onTap: () => controller.changeTab(3))),
     ];
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: SizedBox(
@@ -105,7 +118,7 @@ class MainView extends StatelessWidget {
             MapView(),
             Center(child: Text('Рецензии')),
             Center(child: Text('Временное')),
-            Center(child: Text('Профиль')),
+            AuthPage(),
           ],
         );
       }),

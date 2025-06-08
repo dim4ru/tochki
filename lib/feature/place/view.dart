@@ -5,6 +5,7 @@ import 'package:tochki/feature/place/controller.dart';
 import 'package:tochki/feature/place/widgets/distance_badge.dart';
 import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/feature/place/widgets/place_stats_row.dart';
+import 'package:tochki/shared/error_page.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 import 'package:latlong2/latlong.dart';
@@ -12,7 +13,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../mock.dart';
 import '../../shared/ui_kit/snackbar.dart';
-import '../review/controller.dart';
+import '../authorization/controller.dart';
 import '../user_profile/modal.dart';
 import '../wikimapia/modal.dart';
 import 'form/form.dart';
@@ -25,9 +26,9 @@ class Place extends GetView<PlaceController> {
   @override
   Widget build(BuildContext context) {
     Get.put(PlaceController(placeId: id));
-    Get.put(ReviewController(reviewId: 1));
+    // Get.put(ReviewController(reviewId: 1));
 
-    return Obx(() => controller.place.value == null ? CircularProgressIndicator() : Scaffold(
+    return Obx(() => controller.place.value == null ? ErrorPage('Произошла ошибка при загрузке точки (controller.place.value == null)') : Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
         title: Text('Точка', style: TTypography.headline2.copyWith(color: TColors.white),),
@@ -85,27 +86,17 @@ class Place extends GetView<PlaceController> {
                     child: Text('Править точку  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: TSpacers.spacing5,),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: UiButton.filledPrimary(
-                  //     enabled: !controller.isVisited.value,
-                  //     onPressed: (){
-                  //       controller.registerVisit();
-                  //       TSnackbar.show(context, 'Вы здесь были');
-                  //     },
-                  //     label: Text('Здесь был dim4', style: TTypography.body3,),
-                  //   ),
-                  // ),
                   SizedBox(
                     width: double.infinity,
                     child:
                     !controller.isVisited.value ?
                     UiButton.filledPrimary(
+                      enabled: !Get.find<AuthController>().guestMode,
                       onPressed: (){
                         controller.registerVisit();
                         TSnackbar.show(context, 'Вы отметились на этой точке!');
                       },
-                      label: Text('Здесь был dim4', style: TTypography.body3,),
+                      label: Text(Get.find<AuthController>().guestMode ? 'Авторизуйтесь чтобы отметиться' : 'Здесь был dim4', style: TTypography.body3,),
                     ) :
                     UiButton.filledSecondary(
                       onPressed: (){},
@@ -121,7 +112,7 @@ class Place extends GetView<PlaceController> {
                           Text('Добавил '),
                           GestureDetector(
                             child: Text(
-                              'dim4 ❯',
+                              '${controller.place.value?.authorName} ❯',
                               style: TTypography.body3,
                             ),
                             onTap: () {
