@@ -30,10 +30,10 @@ class MapView extends GetView<MapController> {
             Get.to(
               () => PlaceForm(
                 formType: FormType.create,
+                initialLocation: latLng,
               ),
               transition: Transition.downToUp,
               duration: const Duration(milliseconds: 300),
-              arguments: latLng,
             );
           },
         ),

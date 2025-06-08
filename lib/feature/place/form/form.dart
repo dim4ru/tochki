@@ -8,9 +8,11 @@ import 'package:tochki/shared/ui_kit/text_field.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 import '../../../mock.dart';
+import '../../../shared/ui_kit/snackbar.dart';
 import '../../../shared/ui_kit/ui_kit.dart';
 import '../edits_history/place_edits_list.dart';
 import 'controller.dart';
+import 'location_picker.dart';
 
 enum FormType {
   create,
@@ -19,18 +21,26 @@ enum FormType {
 
 class PlaceForm extends GetView<PlaceFormController> {
   final FormType formType;
-  final LatLng? location;
+  final LatLng initialLocation;
 
-  PlaceForm({Key? key, required this.formType, this.location}) : super(key: key);
+  PlaceForm({Key? key, required this.formType, required this.initialLocation})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Get.put(PlaceFormController());
 
+    final pointNameFieldController = TextEditingController();
+    final descriptionFieldController = TextEditingController();
+    final editCommentFieldController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
-        title: Text('Правка точки', style: TTypography.headline2.copyWith(color: TColors.white),),
+        title: Text(
+          formType == FormType.create ? 'Создание точки' : 'Правка точки',
+          style: TTypography.headline2.copyWith(color: TColors.white),
+        ),
         leading: IconButton(
           icon: Icon(
             Icons.cancel_outlined,
@@ -39,6 +49,7 @@ class PlaceForm extends GetView<PlaceFormController> {
           onPressed: () => Get.back(),
         ),
         actions: [
+          if (formType == FormType.edit)
           IconButton(
               onPressed: () {
                 Get.to(
@@ -55,7 +66,13 @@ class PlaceForm extends GetView<PlaceFormController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PhotosRow(imageUrls: imageUrls, uploadButton: true,),
+            // photos added via separate button,
+            // in edit mode can only be deleted
+            if (formType == FormType.edit)
+            PhotosRow(
+              imageUrls: imageUrls,
+              uploadButton: true,
+            ),
             Padding(
               padding: const EdgeInsets.all(TSpacers.spacing5),
               child: Column(
@@ -72,16 +89,34 @@ class PlaceForm extends GetView<PlaceFormController> {
                             'Координаты точки',
                             style: TTypography.caption2,
                           ),
-                          SizedBox(height: TSpacers.spacing3,),
+                          SizedBox(
+                            height: TSpacers.spacing3,
+                          ),
+
+                          /// 1.КООРДИНАТЫ
                           GestureDetector(
                             onTap: () async {
-                              await Clipboard.setData(ClipboardData(text: 'sampleid'));
+                              await Clipboard.setData(ClipboardData(
+                                  text: controller.location.value
+                                          ?.toFormattedString() ??
+                                      initialLocation.toFormattedString()));
+                              TSnackbar.show(
+                                context,
+                                'Координаты скопированы в буфер обмена',
+                              );
                             },
                             child: Row(
                               children: [
-                                Text('55.125995, 48.225100',
-                                    style: TextStyle(fontWeight: FontWeight.bold)),
-                                SizedBox(width: TSpacers.spacing3,),
+                                Obx(() => Text(
+                                      controller.location.value
+                                              ?.toFormattedString() ??
+                                          initialLocation.toFormattedString(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                SizedBox(
+                                  width: TSpacers.spacing3,
+                                ),
                                 Icon(Icons.copy_sharp, size: TSpacers.spacing5),
                               ],
                             ),
@@ -89,60 +124,116 @@ class PlaceForm extends GetView<PlaceFormController> {
                         ],
                       ),
                       UiButton.filledPrimary(
-                        onPressed: () {
+                        onPressed: () async {
+                          final LatLng? picked = await Get.to<LatLng>(
+                            () => LocationPicker(initialCenter: initialLocation,),
+                          );
+
+                          if (picked != null) {
+                            controller.location.value = picked;
+                          }
                         },
                         icon: Icon(Icons.pin_drop_outlined),
                       ),
                     ],
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
+                  SizedBox(
+                    height: TSpacers.spacing5,
+                  ),
+
                   // TODO placeholder max symbols
                   Text(
                     'Название (заголовок) точки',
                     style: TTypography.caption2,
                   ),
-                  SizedBox(height: TSpacers.spacing3,),
-                  UiTextField.standard(
-
+                  SizedBox(
+                    height: TSpacers.spacing3,
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
+
+                  /// 2.НАЗВАНИЕ
+                  UiTextField.standard(
+                    controller: pointNameFieldController,
+                  ),
+                  SizedBox(
+                    height: TSpacers.spacing5,
+                  ),
                   Text(
                     'Подробное описание места (для отзыва – есть рецензия)',
                     style: TTypography.caption2,
                   ),
-                  SizedBox(height: TSpacers.spacing3,),
+                  SizedBox(
+                    height: TSpacers.spacing3,
+                  ),
+
+                  /// 3.ОПИСАНИЕ
                   SimpleUiTextField(
                     hintText: 'Не более 2000 символов',
                     variant: UiTextFieldVariant.long,
+                    controller: descriptionFieldController,
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
+                  SizedBox(
+                    height: TSpacers.spacing5,
+                  ),
                   // TODO placeholder max symbols
-                  Text(
-                    'Краткое описание правки (отображается в истории правок)',
-                    style: TTypography.caption2,
+                  if (formType == FormType.edit)
+                  Column(
+                    children: [
+                      Text(
+                        'Краткое описание правки (отображается в истории правок)',
+                        style: TTypography.caption2,
+                      ),
+                      SizedBox(
+                        height: TSpacers.spacing3,
+                      ),
+                      /// 4.ПРАВКА
+                      UiTextField.standard(
+                        controller: editCommentFieldController,
+                      ),
+                      SizedBox(
+                        height: TSpacers.spacing5,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: TSpacers.spacing3,),
-                  UiTextField.standard(
-
-                  ),
-                  SizedBox(height: TSpacers.spacing5,),
                   SizedBox(
                     width: double.infinity,
                     child: UiButton.filledPrimary(
-                      onPressed: (){},
-                      label: Text('Применить правки', style: TTypography.body3,),
+                      onPressed: () async {
+                        controller.pointName.value = pointNameFieldController.text;
+                        controller.description.value = descriptionFieldController.text;
+                        controller.editComment.value = editCommentFieldController.text;
+
+                        if (formType == FormType.create) {
+                          await controller.createPlace();
+                          Get.back();
+                        }
+                        if (formType == FormType.edit) {
+                          await controller.editPlace();
+                          Get.back();
+                        }
+                      },
+                      label: Text(
+                        formType == FormType.create ? 'Создать точку' : 'Применить правки',
+                        style: TTypography.body3,
+                      ),
                     ),
                   ),
-                  SizedBox(height: TSpacers.spacing3,),
+                  SizedBox(
+                    height: TSpacers.spacing3,
+                  ),
+                  if (formType == FormType.edit)
                   GestureDetector(
                     onTap: () async {
                       Get.to(
                         PlaceEditsList(),
                       );
                     },
-                    child: Text('История правок  ❯', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text('История правок  ❯',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
-                  SizedBox(height: TSpacers.spacing5,),
+                  SizedBox(
+                    height: TSpacers.spacing5,
+                  ),
+                  if (formType == FormType.edit)
                   GestureDetector(
                     onTap: () async {
                       await Clipboard.setData(ClipboardData(text: 'sampleid'));
@@ -150,9 +241,19 @@ class PlaceForm extends GetView<PlaceFormController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('PointID: 9634', style: TTypography.caption2.copyWith(color: Colors.grey),),
-                        SizedBox(width: TSpacers.spacing2,),
-                        Icon(Icons.copy_rounded, color: Colors.grey, size: TSpacers.spacing4,)
+                        Text(
+                          'PointID: 9634',
+                          style:
+                              TTypography.caption2.copyWith(color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: TSpacers.spacing2,
+                        ),
+                        Icon(
+                          Icons.copy_rounded,
+                          color: Colors.grey,
+                          size: TSpacers.spacing4,
+                        )
                       ],
                     ),
                   ),
@@ -164,5 +265,12 @@ class PlaceForm extends GetView<PlaceFormController> {
         ),
       ),
     );
+  }
+}
+
+extension LatLngFormatting on LatLng {
+  /// Возвращает строку "xx.xxxxxx, yy.yyyyyy"
+  String toFormattedString() {
+    return '${latitude.toStringAsFixed(6)}, ${longitude.toStringAsFixed(6)}';
   }
 }
