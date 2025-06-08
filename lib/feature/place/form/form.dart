@@ -30,10 +30,6 @@ class PlaceForm extends GetView<PlaceFormController> {
   Widget build(BuildContext context) {
     Get.put(PlaceFormController());
 
-    final pointNameFieldController = TextEditingController();
-    final descriptionFieldController = TextEditingController();
-    final editCommentFieldController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
@@ -152,7 +148,7 @@ class PlaceForm extends GetView<PlaceFormController> {
 
                   /// 2.НАЗВАНИЕ
                   UiTextField.standard(
-                    controller: pointNameFieldController,
+                    controller: controller.pointNameFieldController,
                   ),
                   SizedBox(
                     height: TSpacers.spacing5,
@@ -169,7 +165,7 @@ class PlaceForm extends GetView<PlaceFormController> {
                   SimpleUiTextField(
                     hintText: 'Не более 2000 символов',
                     variant: UiTextFieldVariant.long,
-                    controller: descriptionFieldController,
+                    controller: controller.descriptionFieldController,
                   ),
                   SizedBox(
                     height: TSpacers.spacing5,
@@ -187,7 +183,7 @@ class PlaceForm extends GetView<PlaceFormController> {
                       ),
                       /// 4.ПРАВКА
                       UiTextField.standard(
-                        controller: editCommentFieldController,
+                        controller: controller.editCommentFieldController,
                       ),
                       SizedBox(
                         height: TSpacers.spacing5,
@@ -198,10 +194,6 @@ class PlaceForm extends GetView<PlaceFormController> {
                     width: double.infinity,
                     child: UiButton.filledPrimary(
                       onPressed: () async {
-                        controller.pointName.value = pointNameFieldController.text;
-                        controller.description.value = descriptionFieldController.text;
-                        controller.editComment.value = editCommentFieldController.text;
-
                         if (formType == FormType.create) {
                           await controller.createPlace();
                           Get.back();
