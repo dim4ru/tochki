@@ -15,6 +15,7 @@ import 'feature/map/controller.dart';
 import 'feature/marker/controller.dart';
 import 'feature/navigation/model.dart';
 import 'feature/place/edits_history/place_edits_list_controller.dart';
+import 'feature/user_profile/modal.dart';
 
 void main() async {
   Intl.defaultLocale = 'ru';
@@ -80,6 +81,9 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(MainScreenController());
 
+    final authController = Get.find<AuthController>();
+    final userId = authController.user?.id;
+    final userName = authController.user?.userMetadata?['displayName'] ?? '';
 
     final appBarTabs = [
       AppBarItem(item: AppBarTab(title: 'Точки', onTap: () => controller.changeTab(0))),
@@ -88,7 +92,7 @@ class MainView extends StatelessWidget {
           item: Get.find<AuthController>().guestMode
               ? AppBarTab(title: 'Войти', onTap: () => controller.changeTab(3))
               : AppBarTab(
-                  title: 'Профиль', onTap: () => controller.changeTab(3))),
+                  title: userName, onTap: () => UserProfile(id: userId!, name: userName).showModal(context))),
     ];
 
     return Scaffold(
