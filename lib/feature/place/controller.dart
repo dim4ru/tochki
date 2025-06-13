@@ -58,6 +58,7 @@ class PlaceController extends GetxController {
         latitude: row['latitude'],
         longitude: row['longitude'],
         rating: row['rating'],
+        authorId: row['author_id'],
         authorName: await auth.getUsernameById(row['author_id']),
         createdAt: row['created_at'] != null
             ? DateTime.parse(row['created_at'] as String)
@@ -67,11 +68,13 @@ class PlaceController extends GetxController {
       );
     }
 
-    await Supabase.instance.client
+    if (!Get.find<AuthController>().guestMode) {
+      await Supabase.instance.client
         .from('visits').select()
         .eq('place_id', placeId)
         .eq('user_id', auth.user!.id)
         .then((value) => isVisited.value = value.isNotEmpty);
+    }
   }
 }
 

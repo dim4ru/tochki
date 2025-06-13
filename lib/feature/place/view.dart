@@ -116,7 +116,7 @@ class Place extends GetView<PlaceController> {
                               style: TTypography.body3,
                             ),
                             onTap: () {
-                              UserProfile().showModal(context);
+                              UserProfile(id: controller.place.value!.authorId, name: controller.place.value?.authorName ?? '-').showModal(context);
                             },
                           )
                         ],

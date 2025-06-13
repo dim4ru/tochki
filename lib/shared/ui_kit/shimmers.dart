@@ -37,4 +37,25 @@ class TShimmers {
     );
   }
 
+  static Widget sizedShimmer(TextStyle style) {
+    // Используем TextPainter для измерения размера текста
+    TextStyle textStyle = style;
+    String text = '00%';  // Текст, который будет отображаться
+
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: textStyle),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+
+    return Shimmer.fromColors(
+      baseColor: TColors.black,
+      highlightColor: TColors.gray,
+      child: Container(
+        width: textPainter.size.width,  // Ширина контейнера равна ширине текста
+        height: textPainter.size.height,  // Высота контейнера равна высоте текста
+        color: TColors.white,
+      ),
+    );
+  }
 }
