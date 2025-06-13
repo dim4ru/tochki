@@ -3,11 +3,9 @@ import 'package:latlong2/latlong.dart';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/shared/ui_kit/text_field.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../../mock.dart';
 import '../../../shared/ui_kit/snackbar.dart';
 import '../../../shared/ui_kit/ui_kit.dart';
 import '../edits_history/place_edits_list.dart';
@@ -64,11 +62,11 @@ class PlaceForm extends GetView<PlaceFormController> {
           children: [
             // photos added via separate button,
             // in edit mode can only be deleted
-            if (formType == FormType.edit)
-            PhotosRow(
-              imageUrls: imageUrls,
-              uploadButton: true,
-            ),
+            // if (formType == FormType.edit)
+            // PhotosRow(
+            //   placeId: 1,
+            //   uploadButton: true,
+            // ),
             Padding(
               padding: const EdgeInsets.all(TSpacers.spacing5),
               child: Column(

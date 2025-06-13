@@ -65,7 +65,6 @@ class AuthController extends GetxController {
           .select('username')
           .eq('id', id)
           .single();
-      print(response);
       return (response)['username'] as String?;
     } on PostgrestException catch (e) {
       Get.snackbar('Ошибка при получении имени автора', e.message, snackPosition: SnackPosition.BOTTOM);

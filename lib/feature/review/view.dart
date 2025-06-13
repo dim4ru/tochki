@@ -1,12 +1,10 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:tochki/feature/place/view.dart';
-import 'package:tochki/feature/place/widgets/photos_row.dart';
 import 'package:tochki/shared/routing/routes.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../mock.dart';
 import '../../shared/ui_kit/rating_buttons/vote_button.dart';
 import 'controller.dart';
 
@@ -33,7 +31,7 @@ class Review extends GetView<ReviewController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PhotosRow(imageUrls: imageUrls),
+            // PhotosRow(imageUrls: imageUrls),
             Padding(
               padding: const EdgeInsets.fromLTRB(TSpacers.spacing5, TSpacers.spacing4, TSpacers.spacing5, TSpacers.spacing5),
               child: Column(

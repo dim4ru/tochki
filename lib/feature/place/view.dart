@@ -11,7 +11,6 @@ import 'package:ui_kit/ui_kit.dart';
 import 'package:latlong2/latlong.dart';
 
 
-import '../../mock.dart';
 import '../../shared/ui_kit/snackbar.dart';
 import '../authorization/controller.dart';
 import '../user_profile/modal.dart';
@@ -45,7 +44,7 @@ class Place extends GetView<PlaceController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            PhotosRow(imageUrls: imageUrls, uploadButton: true, showAllButton: true,),
+            PhotosRow(uploadButton: true, showAllButton: true, placeId: controller.place.value!.id,),
             Padding(
               padding: const EdgeInsets.all(TSpacers.spacing5),
               child: Column(
