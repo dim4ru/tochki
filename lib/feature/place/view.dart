@@ -149,7 +149,8 @@ class Place extends GetView<PlaceController> {
                                     label: Text(
                                       Get.find<AuthController>().guestMode
                                           ? 'Авторизуйтесь чтобы отметиться'
-                                          : 'Здесь был ${Get.find<AuthController>().username}',
+                                          // : 'Здесь был ${Get.find<AuthController>().username}',
+                                          : 'Я здесь был',
                                       style: TTypography.body3,
                                     ),
                                   )

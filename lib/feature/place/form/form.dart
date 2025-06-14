@@ -56,19 +56,19 @@ class PlaceForm extends StatelessWidget {
           ),
           onPressed: () => Get.back(),
         ),
-        actions: [
-          if (formType == FormType.edit)
-          IconButton(
-              onPressed: () {
-                Get.to(
-                  PlaceEditsList(),
-                );
-              },
-              icon: Icon(
-                Icons.history_sharp,
-                color: TColors.white,
-              ))
-        ],
+        // actions: [
+        //   if (formType == FormType.edit)
+        //   IconButton(
+        //       onPressed: () {
+        //         Get.to(
+        //           PlaceEditsList(),
+        //         );
+        //       },
+        //       icon: Icon(
+        //         Icons.history_sharp,
+        //         color: TColors.white,
+        //       ))
+        // ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -226,16 +226,16 @@ class PlaceForm extends StatelessWidget {
                   SizedBox(
                     height: TSpacers.spacing3,
                   ),
-                  if (formType == FormType.edit)
-                  GestureDetector(
-                    onTap: () async {
-                      Get.to(
-                        PlaceEditsList(),
-                      );
-                    },
-                    child: Text('История правок  ❯',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ),
+                  // if (formType == FormType.edit)
+                  // GestureDetector(
+                  //   onTap: () async {
+                  //     Get.to(
+                  //       PlaceEditsList(),
+                  //     );
+                  //   },
+                  //   child: Text('История правок  ❯',
+                  //       style: TextStyle(fontWeight: FontWeight.bold)),
+                  // ),
                   SizedBox(
                     height: TSpacers.spacing5,
                   ),

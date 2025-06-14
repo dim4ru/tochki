@@ -87,10 +87,9 @@ class MainView extends StatelessWidget {
 
     final appBarTabs = [
       AppBarItem(item: AppBarTab(title: 'Точки', onTap: () => controller.changeTab(0))),
-      AppBarItem(item: AppBarTab(title: 'Рецензии', onTap: () => controller.changeTab(1))),
       AppBarItem(
           item: Get.find<AuthController>().guestMode
-              ? AppBarTab(title: 'Войти', onTap: () => controller.changeTab(3))
+              ? AppBarTab(title: 'Войти', onTap: () => controller.changeTab(1))
               : AppBarTab(
                   title: userName, onTap: () => UserProfile(id: userId!, name: userName).showModal(context))),
     ];
@@ -120,8 +119,6 @@ class MainView extends StatelessWidget {
           index: controller.tabIndex.value,
           children: const [
             MapView(),
-            Center(child: Text('Рецензии')),
-            Center(child: Text('Временное')),
             AuthPage(),
           ],
         );
