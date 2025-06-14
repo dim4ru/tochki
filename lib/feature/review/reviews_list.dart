@@ -8,6 +8,9 @@ import 'package:ui_kit/ui_kit.dart';
 import '../../../shared/ui_kit/colors.dart';
 import '../../../shared/ui_kit/spacers.dart';
 import '../../../shared/ui_kit/typography.dart';
+import '../../shared/ui_kit/snackbar.dart';
+import '../authorization/controller.dart';
+import 'form/form.dart';
 
 class ReviewsList extends GetView<ReviewsListController> {
   final int placeId;
@@ -56,7 +59,7 @@ class ReviewsList extends GetView<ReviewsListController> {
         padding: EdgeInsets.all(TSpacers.spacing3),
         child: UiButton.filledPrimary(
           onPressed: () {
-            // Get.find<AuthController>().guestMode ? TSnackbar.show(context,'Для добавления рецензии необходимо авторизоваться') : Get.to(() => ReviewForm(placeId: placeId));;
+            Get.find<AuthController>().guestMode ? TSnackbar.show(context,'Для добавления рецензии необходимо авторизоваться') : Get.to(() => ReviewForm(placeId: placeId));
           },
           label: Icon(CupertinoIcons.add, color: TColors.white,),
         ),
