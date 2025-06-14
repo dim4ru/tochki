@@ -4,12 +4,8 @@ class PlaceDTO {
   final String description;
   final double latitude;
   final double longitude;
-  final int? rating;
-  final int visitorCount;
-  final int reviewsCount;
   final DateTime? createdAt;
   final String authorId;
-  final String? authorName;
 
   PlaceDTO(
       {required this.id,
@@ -17,17 +13,13 @@ class PlaceDTO {
       required this.description,
       required this.latitude,
       required this.longitude,
-      required this.rating,
-      required this.visitorCount,
-      required this.reviewsCount,
       required this.createdAt,
       required this.authorId,
-      required this.authorName
       });
 
   @override
   String toString() =>
-      'PlaceDTO(id: $id, name: $name, description: $description, latitude: $latitude, longitude: $longitude, rating: $rating, visitor_count $visitorCount, reviews_count $reviewsCount, createdAt: $createdAt, authorName: $authorName, authorId: $authorId)';
+      'PlaceDTO(id: $id, name: $name, description: $description, latitude: $latitude, longitude: $longitude, createdAt: $createdAt, authorId: $authorId)';
 
   factory PlaceDTO.fromMap(Map<String, dynamic> map) {
     // Helper to parse an int that might come back as String
@@ -44,16 +36,10 @@ class PlaceDTO {
       description:   (map['description'] as String?) ?? '',
       latitude:      parseDouble(map['latitude']),
       longitude:     parseDouble(map['longitude']),
-      rating: map['rating'] != null
-          ? parseInt(map['rating'])
-          : null,
-      visitorCount:  parseInt(map['visitor_count']),
-      reviewsCount:  parseInt(map['reviews_count']),
       createdAt: map['created_at'] != null
           ? DateTime.parse(map['created_at'] as String)
           : null,
       authorId:      map['author_id'] as String,
-      authorName:    map['author_name'] as String?,
     );
   }
 }

@@ -12,6 +12,7 @@ class PlaceController extends GetxController {
 
   final int placeId;
   final RxBool isVisited = false.obs;
+  final RxString authorName = ''.obs;
   final Rxn<PlaceDTO> place = Rxn<PlaceDTO>();
 
   PlaceController({required this.placeId});
@@ -57,14 +58,10 @@ class PlaceController extends GetxController {
         description: row['description'],
         latitude: row['latitude'],
         longitude: row['longitude'],
-        rating: row['rating'],
         authorId: row['author_id'],
-        authorName: await auth.getUsernameById(row['author_id']),
         createdAt: row['created_at'] != null
             ? DateTime.parse(row['created_at'] as String)
             : null,
-        visitorCount: visitsData.length,
-        reviewsCount: reviewData.length,
       );
     }
 
@@ -75,6 +72,8 @@ class PlaceController extends GetxController {
         .eq('user_id', auth.user!.id)
         .then((value) => isVisited.value = value.isNotEmpty);
     }
+
+    authorName.value = await Get.find<AuthController>().getUsernameById(place.value!.authorId) ?? 'пользователь';
   }
 }
 

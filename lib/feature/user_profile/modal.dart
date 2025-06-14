@@ -64,6 +64,7 @@ class UserProfile {
                 () => UserProfileMenu(
                   pointsCount: controller.pointsCount.value,
                   reviewsCount: controller.reviewsCount.value,
+                  photosCount: controller.photosCount.value,
                 ),
               )
             ],

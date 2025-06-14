@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:tochki/shared/ui_kit/text_field.dart';
 import 'package:ui_kit/ui_kit.dart';
 
+import '../../../core/dto/place_dto.dart';
 import '../../../shared/ui_kit/snackbar.dart';
 import '../../../shared/ui_kit/ui_kit.dart';
 import '../edits_history/place_edits_list.dart';
@@ -17,16 +18,29 @@ enum FormType {
   edit,
 }
 
-class PlaceForm extends GetView<PlaceFormController> {
+class PlaceForm extends StatelessWidget {
+  final PlaceDTO? editingPlaceDTO;
   final FormType formType;
   final LatLng initialLocation;
 
-  PlaceForm({Key? key, required this.formType, required this.initialLocation})
-      : super(key: key);
+  PlaceForm({
+    Key? key,
+    required this.formType,
+    required this.initialLocation,
+    this.editingPlaceDTO,
+  }) : super(key: key) {
+    // Только при создании, а не в build()
+    Get.put(
+      PlaceFormController(
+        editingPlaceDTO: editingPlaceDTO,
+        initialLocation: initialLocation,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PlaceFormController());
+    final controller = Get.find<PlaceFormController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -197,8 +211,10 @@ class PlaceForm extends GetView<PlaceFormController> {
                           Get.back();
                         }
                         if (formType == FormType.edit) {
-                          await controller.editPlace();
-                          Get.back();
+                          if (await controller.editPlace(editingPlaceDTO)){
+                            Get.back();
+                            TSnackbar.show(context, 'Точка обновлена, старая версия сохранена в архиве');
+                          }
                         }
                       },
                       label: Text(
@@ -232,7 +248,7 @@ class PlaceForm extends GetView<PlaceFormController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'PointID: 9634',
+                          'PointID: ${editingPlaceDTO?.id ?? '-'}',
                           style:
                               TTypography.caption2.copyWith(color: Colors.grey),
                         ),

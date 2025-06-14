@@ -11,6 +11,7 @@ class UserProfileController extends GetxController {
 
   final RxInt pointsCount = RxInt(0);
   final RxInt reviewsCount = RxInt(0);
+  final RxInt photosCount = RxInt(0);
 
   @override
   void onInit() {
@@ -19,6 +20,7 @@ class UserProfileController extends GetxController {
       if (newId.isNotEmpty) {
         fetchUserPlaces();
         fetchUserReviews();
+        fetchUserPhotos();
       }
     });
   }
@@ -69,4 +71,26 @@ class UserProfileController extends GetxController {
     }
   }
 
+  Future<void> fetchUserPhotos() async {
+    try {
+      final response = await Supabase.instance.client
+          .from('places_images')
+          .select()
+          .eq('author_id', id);
+      final data = response as List<dynamic>;
+      photosCount.value = data.length;
+    } on PostgrestException catch (e) {
+      Get.snackbar(
+        'Не удалось загрузить фото',
+        e.message,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Неизвестная ошибка',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
 }

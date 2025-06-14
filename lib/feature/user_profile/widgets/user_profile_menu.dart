@@ -7,11 +7,13 @@ import '../../../shared/ui_kit/ui_kit.dart';
 class UserProfileMenu extends StatelessWidget {
   final int pointsCount;
   final int reviewsCount;
+  final int photosCount;
 
   const UserProfileMenu({
     super.key,
     required this.pointsCount,
     required this.reviewsCount,
+    required this.photosCount,
   });
 
   @override
@@ -28,6 +30,9 @@ class UserProfileMenu extends StatelessWidget {
         // leading: Icon(Icons.rate_review_outlined, color: TColors.white,),
         title: Text('Добавлено рецензий – $reviewsCount', style: titleStyle,),
         // trailing: Icon(Icons.chevron_right_outlined, color: TColors.white,),
+      ),
+      ListTile(
+        title: Text('Добавлено фотографий – $photosCount', style: titleStyle,),
       ),
     ];
 

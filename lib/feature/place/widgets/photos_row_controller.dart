@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../authorization/controller.dart';
+
 class PhotosController extends GetxController {
   PhotosController({required this.placeId});
 
@@ -43,6 +45,11 @@ class PhotosController extends GetxController {
   }
 
   Future<void> uploadPhoto() async {
+    if (Get.find<AuthController>().guestMode) {
+      Get.snackbar('Ошибка', 'Авторизуйтесь для добавления фото', snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
+
     isLoading.value = true;
     final picked = await _picker.pickImage(
       source: ImageSource.gallery,
