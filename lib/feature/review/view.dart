@@ -1,16 +1,22 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:tochki/feature/place/view.dart';
-import 'package:tochki/shared/routing/routes.dart';
+import 'package:intl/intl.dart';
 import 'package:tochki/shared/ui_kit/ui_kit.dart';
 import 'package:ui_kit/ui_kit.dart';
 
-import '../../shared/ui_kit/rating_buttons/vote_button.dart';
-import 'controller.dart';
+import '../../core/dto/review_dto.dart';
+import '../authorization/controller.dart';
+import '../user_profile/modal.dart';
 
 class Review extends GetView<ReviewController> {
+  final ReviewDTO review;
+
+  const Review({super.key, required this.review});
+
   @override
   Widget build(BuildContext context) {
+    Get.put(ReviewController(review: review));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: TColors.black,
@@ -38,33 +44,33 @@ class Review extends GetView<ReviewController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    controller.review.value?.title ?? '-',
+                    review.title,
                     style: TTypography.promo,
                   ),
-                  Row(
-                    children: [
-                      Text('Точка: '),
-                      GestureDetector(
-                        child: Text(
-                          '${controller.correspondingPlaceName} ❯',
-                          style: TTypography.body3,
-                        ),
-                        onTap: () async {
-                          // todo get by point id
-                          Get.to(() => Place(id: 7,));
-                        },
-                      )
-                    ],
-                  ),
+                  /// get to place page from its review
+                  // Row(
+                  //   children: [
+                  //     Text('Точка: '),
+                  //     GestureDetector(
+                  //       child: Text(
+                  //         '${controller.getReviewPlaceName()} ❯',
+                  //         style: TTypography.body3,
+                  //       ),
+                  //       onTap: () async {
+                  //         Get.to(() => Place(id: 7,));
+                  //       },
+                  //     )
+                  //   ],
+                  // ),
                   SizedBox(height: TSpacers.spacing5,),
                   Text(
-                    controller.review.value?.body ?? '-',
+                    review.body,
                     style: TTypography.body2,
                   ),
                   SizedBox(
                     height: TSpacers.spacing5,
                   ),
-                  VoteButton.loading(),
+                  // VoteButton.loading(),
                   SizedBox(
                     height: TSpacers.spacing5,
                   ),
@@ -75,17 +81,24 @@ class Review extends GetView<ReviewController> {
                         children: [
                           Text('Написал '),
                           GestureDetector(
-                            child: Text(
-                              '${controller.correspondingPlaceName.value} ❯',
+                            child: Obx(() => Text(
+                              '${controller.authorName.value} ❯',
                               style: TTypography.body3,
-                            ),
+                            )),
                             onTap: () {
-                              Get.toNamed(TRoutes.userProfile);
+                              UserProfile(
+                                id: review.authorId,
+                                name: controller.authorName.value,
+                              ).showModal(context);
                             },
                           )
                         ],
                       ),
-                      Text('6 марта 2025'),
+                      Text(
+                        DateFormat('d MMMM yyyy', 'ru').format(
+                            review.createdAt),
+                        style: TTypography.body3,
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -93,13 +106,13 @@ class Review extends GetView<ReviewController> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      await Clipboard.setData(ClipboardData(text: controller.review.value?.id.toString() ?? ''));
+                      await Clipboard.setData(ClipboardData(text: review.id.toString()));
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'ReviewID: ${controller.review.value?.id.toString()}',
+                          'ReviewID: ${review.id.toString()}',
                           style:
                               TTypography.caption2.copyWith(color: Colors.grey),
                         ),
@@ -122,5 +135,18 @@ class Review extends GetView<ReviewController> {
         ),
       ),
     );
+  }
+}
+
+class ReviewController extends GetxController {
+  final ReviewDTO review;
+  final RxString authorName = ''.obs;
+
+  ReviewController({required this.review});
+
+  @override
+  onInit() async {
+    super.onInit();
+    authorName.value = await Get.find<AuthController>().getUsernameById(review.authorId) ?? 'пользователь';
   }
 }

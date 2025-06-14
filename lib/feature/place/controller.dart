@@ -15,6 +15,9 @@ class PlaceController extends GetxController {
   final RxString authorName = ''.obs;
   final Rxn<PlaceDTO> place = Rxn<PlaceDTO>();
 
+  final RxInt visitorsCount = 0.obs;
+  final RxInt reviewsCount = 0.obs;
+
   PlaceController({required this.placeId});
 
   @override
@@ -74,6 +77,9 @@ class PlaceController extends GetxController {
     }
 
     authorName.value = await Get.find<AuthController>().getUsernameById(place.value!.authorId) ?? 'пользователь';
+
+    visitorsCount.value = visitsData.length;
+    reviewsCount.value = reviewData.length;
   }
 }
 

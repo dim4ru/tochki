@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,7 @@ import 'package:latlong2/latlong.dart';
 
 import '../../shared/ui_kit/snackbar.dart';
 import '../authorization/controller.dart';
+import '../review/reviews_list.dart';
 import '../user_profile/modal.dart';
 import '../wikimapia/modal.dart';
 import 'form/form.dart';
@@ -23,7 +25,6 @@ class Place extends GetView<PlaceController> {
   @override
   Widget build(BuildContext context) {
     Get.put(PlaceController(placeId: id));
-    // Get.put(ReviewController(reviewId: 1));
 
     return Obx(() => controller.place.value == null
         ? ErrorPage(
@@ -66,11 +67,35 @@ class Place extends GetView<PlaceController> {
                           controller.place.value!.name,
                           style: TTypography.promo,
                         ),
-                        // PlaceStatsRow(
-                        //   rating: controller.place.value?.rating?.toDouble(),
-                        //   visited: controller.place.value?.visitorCount ?? 0,
-                        //   reviewsCount: controller.place.value?.reviewsCount ?? 0,
-                        // ),
+                        SizedBox(
+                          height: TSpacers.spacing9,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              /// shows rating
+                              // UiButton.text(
+                              //   onPressed: (){},
+                              //   label: rating != null
+                              //       ? Text("${rating!.toStringAsFixed(0)}%")
+                              //       : const Text("- %"),
+                              //   icon: const Icon(Icons.thumbs_up_down_outlined),
+                              // ),
+                              UiButton.text(onPressed: (){}, label: Text(controller.visitorsCount.value.toString()), icon: Icon(CupertinoIcons.person_2),),
+                              UiButton.text(
+                                onPressed: () {
+                                  Get.to(() => ReviewsList(
+                                        placeId: controller.place.value!.id,
+                                      ));
+                                },
+                                label: Text(
+                                    'Рецензии (${controller.reviewsCount.value})  ❯',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold)),
+                                icon: Icon(Icons.rate_review_outlined),
+                              ),
+                            ],
+                          ),
+                        ),
                         Text(
                           controller.place.value!.description,
                           style: TTypography.body2,
@@ -124,7 +149,7 @@ class Place extends GetView<PlaceController> {
                                     label: Text(
                                       Get.find<AuthController>().guestMode
                                           ? 'Авторизуйтесь чтобы отметиться'
-                                          : 'Здесь был dim4',
+                                          : 'Здесь был ${Get.find<AuthController>().username}',
                                       style: TTypography.body3,
                                     ),
                                   )
